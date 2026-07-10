@@ -1,0 +1,325 @@
+.navigation {
+  width: var(--nav-width-collapsed);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-gray-900);
+  color: var(--nav-text);
+  transition: width 0.2s ease;
+  overflow: hidden;
+}
+
+.expanded {
+  width: var(--nav-width-expanded);
+}
+
+/* 상단 로고/토글 */
+.header {
+  display: flex;
+  align-items: center;
+  height: var(--nav-header-height);
+  padding: 0 var(--spacing-md);
+  flex-shrink: 0;
+}
+
+.logoSlot {
+  position: relative;
+  width: var(--nav-icon-slot-size);
+  height: var(--nav-icon-slot-size);
+}
+
+.expanded .logoSlot {
+  position: static;
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo,
+.toggleBtn {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--nav-icon-slot-size);
+  height: var(--nav-icon-slot-size);
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition:
+    opacity 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.expanded .logo,
+.expanded .toggleBtn {
+  position: static;
+}
+
+.logo:hover,
+.toggleBtn:hover {
+  background: var(--nav-hover-overlay);
+}
+
+.toggleBtn {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.navigation:not(.expanded) .logoSlot:hover .logo {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.navigation:not(.expanded) .logoSlot:hover .toggleBtn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.expanded .toggleBtn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 로고와 모든 메뉴 아이콘이 공유하는 고정 크기 슬롯 */
+.icon {
+  width: var(--nav-icon-slot-size);
+  height: var(--nav-icon-slot-size);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--nav-icon-color);
+}
+
+.icon svg {
+  width: var(--nav-icon-size);
+  height: var(--nav-icon-size);
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.menuLink,
+.userLink {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--nav-item-gap);
+  width: 100%;
+  height: var(--nav-item-height);
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.menuLink:hover,
+.userLink:hover {
+  background: var(--nav-hover-overlay);
+}
+
+.menuLink:hover .icon,
+.userLink:hover .icon {
+  color: var(--nav-icon-hover-color);
+}
+
+/* 새채팅 / 검색 메뉴 */
+.menuList {
+  list-style: none;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  flex-shrink: 0;
+}
+
+.menuItem {
+  padding: 0 var(--spacing-md);
+}
+
+.label {
+  display: none;
+  opacity: 0;
+  font-size: var(--font-size-sm);
+  transition: opacity 0.15s ease;
+}
+
+.expanded .label {
+  display: inline;
+  opacity: 1;
+}
+
+/* 최근 항목 (히스토리) */
+.historySection {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.sectionTitle {
+  margin: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--nav-text-muted);
+}
+
+.historyList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.historyItem {
+  width: 100%;
+}
+
+/* 히스토리 항목 한 줄 (텍스트 + 더보기 버튼) */
+.historyRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.historyRow:hover {
+  background: var(--nav-hover-overlay);
+  border-radius: var(--radius-sm);
+}
+
+.historyLink {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-sm);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: inherit;
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.historyTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pinMark {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: var(--nav-icon-color);
+}
+
+.pinIcon {
+  width: 12px;
+  height: 12px;
+}
+
+/* 더보기(⋮) 버튼 - 평소엔 숨김, hover 시 노출 */
+.moreBtn {
+  flex-shrink: 0;
+  opacity: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--nav-text-muted);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  margin-right: var(--spacing-xs);
+}
+
+.moreIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.historyRow:hover .moreBtn {
+  opacity: 1;
+}
+
+.moreBtn:hover {
+  background: var(--nav-hover-overlay);
+  color: var(--nav-text);
+}
+
+/* 컨텍스트 메뉴 팝업 */
+.contextMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  min-width: 140px;
+  background: var(--color-gray-800);
+  border: 1px solid var(--nav-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 20;
+  padding: var(--spacing-xs) 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.menuOption {
+  width: 100%;
+  text-align: left;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  background: transparent;
+  color: var(--nav-text);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+.menuOption:hover {
+  background: var(--nav-hover-overlay);
+}
+
+.menuOptionDanger {
+  color: #ef4444;
+}
+
+/* 이름 수정 인라인 입력창 */
+.historyEditInput {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-sm);
+  border: 1px solid var(--color-primary-500, #338556);
+  border-radius: var(--radius-sm);
+  background: var(--color-gray-800);
+  color: var(--nav-text);
+  font-size: var(--font-size-sm);
+}
+
+.historyEditInput:focus {
+  outline: none;
+}
+
+/* 하단 고정: 사용자 정보 */
+.footer {
+  flex-shrink: 0;
+  margin-top: auto;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-top: 1px solid var(--nav-border);
+}

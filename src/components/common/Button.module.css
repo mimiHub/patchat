@@ -1,0 +1,78 @@
+/* 공통 기본 스타일 (크기, 폰트, 여백, 정렬 등) */
+.base {
+  padding: var(--spacing-2) var(--spacing-4);
+  border: var(--border-width-thin) solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-family: var(--font-base);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+}
+
+/* variant별 색상만 정의 */
+.primary {
+  background-color: var(--color-primary-500);
+  border-color: var(--color-primary-500);
+  color: var(--color-text-inverse);
+}
+
+.primary:hover {
+  background-color: var(--color-primary-600);
+  border-color: var(--color-primary-600);
+}
+
+.secondary {
+  background-color: var(--color-bg);
+  border-color: var(--color-border-default);
+  color: var(--color-text-primary);
+}
+
+.secondary:hover {
+  background-color: var(--color-bg-subtle);
+}
+
+.danger {
+  background-color: var(--color-error);
+  border-color: var(--color-error);
+  color: var(--color-text-inverse);
+}
+
+.danger:hover {
+  opacity: 0.85;
+}
+
+/* 버튼 사이즈 */
+.size_sm {
+  padding: var(--spacing-1) var(--spacing-3);
+  font-size: var(--font-size-sm);
+}
+
+.size_lg {
+  padding: var(--spacing-3) var(--spacing-6);
+  font-size: var(--font-size-lg);
+}
+/* 버튼 그룹 */
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+.rounded {
+  border-radius: var(--radius-full);
+}
+
+.dark {
+  background: var(--color-gray-900);
+  color: var(--color-text-inverse);
+}
+
+.dark:hover {
+  background: var(--color-gray-800);
+  opacity: 1;
+}

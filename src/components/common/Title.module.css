@@ -38,3 +38,15 @@
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
 }
+.weightLight {
+  font-weight: var(--font-weight-light);
+}
+.weightRegular {
+  font-weight: var(--font-weight-regular);
+}
+.weightMedium {
+  font-weight: var(--font-weight-medium);
+}
+.weightBold {
+  font-weight: var(--font-weight-bold);
+}

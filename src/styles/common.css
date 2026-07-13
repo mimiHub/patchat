@@ -23,9 +23,10 @@
   max-width: 700px;
   gap: var(--spacing-5);
   color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
 }
-
+.landing-header .title{
+  font-weight: var(--font-weight-medium);
+}
 .btn-primary {
   background: var(--color-primary-500);
   color: var(--color-text-inverse);
@@ -47,10 +48,13 @@
   width: 100%;
   max-width: 700px;
 }
-
+.hero-text {
+  flex: 4;
+}
 .hero-text h1 {
   font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-bold);
+  font-family: var(--font-secondary);
   letter-spacing: var(--letter-spacing-wide);
   margin: var(--spacing-2) 0;
   color: var(--color-text-primary);
@@ -58,14 +62,14 @@
 
 .hero-text .sub {
   color: var(--color-text-tertiary);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-lg);
 }
 
 .suggestions {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-2);
-  flex: 1;
+  flex: 6;
 }
 
 .suggestions li {

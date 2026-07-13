@@ -106,12 +106,12 @@ function Nav() {
 
       <ul className={styles.menuList}>
         <li className={styles.menuItem}>
-          <button type="button" className={styles.menuLink}>
+          <Link to="/" className={styles.menuLink}>
             <span className={styles.icon}>
               <IconNewChat />
             </span>
             <span className={styles.label}>새채팅</span>
-          </button>
+          </Link>
         </li>
         <li className={styles.menuItem}>
           <button type="button" className={styles.menuLink}>

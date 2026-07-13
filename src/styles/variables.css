@@ -75,7 +75,7 @@
      --------------------------------------------- */
   --font-base:
     "Pretendard", -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif;
-
+--font-secondary: "Montserrat", "Pretendard", sans-serif;
   --font-size-root: 16;
 
   --font-size-sm-px: 14;

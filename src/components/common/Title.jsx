@@ -1,26 +1,45 @@
 import styles from "./Title.module.css";
 
-function Title({ children, level = 1, action, className = "" }) {
+const weightClassMap = {
+  light: styles.weightLight,
+  regular: styles.weightRegular,
+  medium: styles.weightMedium,
+  bold: styles.weightBold,
+};
+
+function Title({ children, level = 1, action, weight, className = "" }) {
+  const weightClass = weight ? weightClassMap[weight] : "";
+
   if (level === "body") {
-    return <p className={`${styles.body} ${className}`}>{children}</p>;
+    return (
+      <p className={`${styles.body} ${weightClass} ${className}`}>
+        {children}
+      </p>
+    );
   }
 
   if (level === "caption") {
-    return <p className={`${styles.caption} ${className}`}>{children}</p>;
+    return (
+      <p className={`${styles.caption} ${weightClass} ${className}`}>
+        {children}
+      </p>
+    );
   }
 
   const Tag = `h${level}`;
+  const tagClassName = `${styles[`level${level}`]} ${weightClass} ${className}`;
 
   if (action) {
     return (
       <div className={`${styles.titleRow} ${className}`}>
-        <Tag className={styles[`level${level}`]}>{children}</Tag>
+        <Tag className={`${styles[`level${level}`]} ${weightClass}`}>
+          {children}
+        </Tag>
         {action}
       </div>
     );
   }
 
-  const tagClassName = `${styles[`level${level}`]} ${className}`;
   return <Tag className={tagClassName}>{children}</Tag>;
 }
 

@@ -120,11 +120,13 @@
   text-align: left;
   cursor: pointer;
   white-space: nowrap;
+  text-decoration: none;
 }
 
 .menuLink:hover,
 .userLink:hover {
   background: var(--nav-hover-overlay);
+  text-decoration: none;
 }
 
 .menuLink:hover .icon,

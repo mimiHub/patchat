@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import Title from "../../components/common/Title"; 
 
 function IndexPage() {
   const navigate = useNavigate();
@@ -12,16 +13,18 @@ function IndexPage() {
   return (
     <main className="landing">
       <header className="landing-header">
-        <p>
+        <Title level={2} weight="regular">
           NEVAS만의 특허관련 DB와 AI채팅을 통해 다양한 특허 탐색을 제공합니다.
-        </p>
+        </Title>
         <button className="btn-primary">비지니스 제안 문의</button>
       </header>
 
       <section className="landing-hero">
         <div className="hero-text">
-          <p>무한한 가능성을 여는 새로운 대화의 시작</p>
-          <h1>NEVAS</h1>
+          <Title level={2} weight="regular">
+            무한한 가능성을 여는 새로운 대화의 시작
+          </Title>
+          <Title  level={1}>NEVAS</Title>
           <p className="sub">특허에 관한 모든것, Nevas와 함께 대화해 보세요.</p>
         </div>
 

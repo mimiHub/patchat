@@ -4,10 +4,10 @@ import { Button, SearchBox } from "../../components/common";
 import styles from "../../components/common/Button.module.css";
 
 const PANEL_BUTTONS = [
-  { type: "chart", label: "차트통계보기" },
+  { type: "chart", label: "막대차트보기" },
   { type: "clusterChart", label: "클러스터차트보기" },
   { type: "patent", label: "특허상세보기" },
-  { type: "accordion", label: "특허분류조회" },
+  { type: "classification", label: "특허분류조회" },
   { type: "GalleryList", label: "대표도면보기" },
 ];
 function getSampleResponse(question) {

@@ -10,7 +10,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import { Card, Badge, Tab } from "../../components/common";
+import { Card, Badge, Tab , PillTabs } from "../../components/common";
 import { clusterData, clusterBubbles } from "./clusterData.js";
 import styles from "./ClusterChart.module.css";
 
@@ -34,25 +34,11 @@ function ClusterChart() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.tabRow}>
-        {clusterData.map((cluster) => (
-          <button
-            key={cluster.id}
-            className={
-              cluster.id === activeId ? styles.tabActive : styles.tab
-            }
-            onClick={() => setActiveId(cluster.id)}
-          >
-            {cluster.color && (
-              <span
-                className={styles.dot}
-                style={{ backgroundColor: cluster.color }}
-              />
-            )}
-            {cluster.label}
-          </button>
-        ))}
-      </div>
+      <PillTabs
+        options={clusterData}
+        selectedId={activeId}
+        onChange={setActiveId}
+      />
 
       {activeCluster.title && (
         <Card

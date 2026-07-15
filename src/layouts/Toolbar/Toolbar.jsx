@@ -34,6 +34,7 @@ function Toolbar() {
         label={`Patchat: ${selectedModel.label}`}
         items={modelMenuItems}
         selectedId={selectedModelId}
+        variant="plain"
       />
 
       <div className={styles.rightSlot}>

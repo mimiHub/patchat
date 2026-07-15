@@ -1,11 +1,11 @@
 export const fieldOptions = [
-  { id: "applicant", label: "출원인" },
-  { id: "applicantRep", label: "출원인대표명" },
-  { id: "currentOwner", label: "현재소유자" },
-  { id: "wordCloud", label: "워드 클라우드" },
-  { id: "ipc", label: "국제특허분류(IPC)" },
-  { id: "cpc", label: "선진특허분류(CPC)" },
-  { id: "rightsStatus", label: "권리현황" },
+  { id: "applicant", label: "출원인", color: "var(--color-primary-500)" },
+  { id: "applicantRep", label: "출원인대표명", color: "var(--color-warning)" },
+  { id: "currentOwner", label: "현재소유자", color: "var(--color-error)" },
+  { id: "wordCloud", label: "워드 클라우드", color: "var(--color-success)" },
+  { id: "ipc", label: "국제특허분류(IPC)", color: "#6366f1" },
+  { id: "cpc", label: "선진특허분류(CPC)", color: "#06b6d4" },
+  { id: "rightsStatus", label: "권리현황", color: "#ec4899" },
 ];
 
 export const topNOptions = [

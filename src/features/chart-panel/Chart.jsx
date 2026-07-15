@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import { Menu } from "../../components/common";
+import { Menu, PillTabs } from "../../components/common";
 import {
   fieldOptions,
   topNOptions,
@@ -48,19 +48,11 @@ function Chart() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.tabRow}>
-        {fieldOptions.map((field) => (
-          <button
-            key={field.id}
-            className={
-              field.id === selectedFieldId ? styles.tabActive : styles.tab
-            }
-            onClick={() => setSelectedFieldId(field.id)}
-          >
-            {field.label}
-          </button>
-        ))}
-      </div>
+      <PillTabs
+        options={fieldOptions}
+        selectedId={selectedFieldId}
+        onChange={setSelectedFieldId}
+      />
 
       <div className={styles.chartCard}>
         <div className={styles.chartHeader}>

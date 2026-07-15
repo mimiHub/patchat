@@ -10,7 +10,7 @@ import GalleryList from "../../features/gallery-panel/GalleryList";
 import { patentList } from "../../features/patent-panel/patentData.js";
 
 const panelComponents = {
-  accordion: ClassificationTree,
+  classification: ClassificationTree,
   chart: Chart,
   clusterChart: ClusterChart,
   patent: Patent,

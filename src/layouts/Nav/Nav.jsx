@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./Nav.module.css";
-import Popup from "../../components/common/Popup";
+import { Popup } from "../../components/common";
 import {
   IconSidebar,
   IconNewChat,
@@ -12,9 +12,14 @@ import {
   IconMore,
 } from "./icons";
 const INITIAL_HISTORY = [
-  { id: "1", title: "GitHub에 올리기", pinned: false },
-  { id: "2", title: "깃에 프로젝트 올리는 방법", pinned: false },
-  { id: "3", title: "모델 선택 가이드 필요", pinned: false },
+  { id: "1", title: "삼성전자 최근 특허 동향 알려줘", pinned: false },
+  { id: "2", title: "QLC 메모리 관련 선행특허 조사해줘", pinned: false },
+  { id: "3", title: "전기차 배터리 특허 클러스터 분석", pinned: false },
+  { id: "4", title: "5G 통신 특허 분류 코드 알려줘", pinned: false },
+  { id: "5", title: "AI 이미지 처리 특허 리스트 보여줘", pinned: false },
+  { id: "6", title: "자율주행 센서 특허 대표도면 보고싶어", pinned: false },
+  { id: "7", title: "OLED 디스플레이 특허 출원 동향", pinned: false },
+  { id: "8", title: "클라우드 오케스트레이션 특허 검색", pinned: false },
 ];
 
 function Nav() {

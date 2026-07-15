@@ -12,7 +12,9 @@ function Tooltip({ text, children, position = "top" }) {
     >
       {children}
       {isVisible && (
-        <span className={`${styles.tooltip} ${styles[position]}`}>{text}</span>
+        <span className={`${styles.tooltip} ${styles[position]}`}>
+          {text}
+        </span>
       )}
     </span>
   );

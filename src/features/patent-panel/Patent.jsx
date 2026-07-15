@@ -1,8 +1,5 @@
 import { patentList } from "./patentData.js";
-import Card from "../../components/common/Card.jsx";
-import Tab from "../../components/common/Tab.jsx";
-import Badge from "../../components/common/Badge.jsx";
-import Button from "../../components/common/Button.jsx";
+import { Card, Tab, Badge, Button } from "../../components/common";
 import styles from "./Patent.module.css";
 
 function Patent({ selectedPatentId, onSelectPatentId, onViewMore }) {
@@ -78,7 +75,7 @@ function Patent({ selectedPatentId, onSelectPatentId, onViewMore }) {
             </div>
           )}
 
-          <Tab tabs={tabs} />
+          <Tab variant="pill" tabs={tabs} />
         </Card>
       </div>
     </div>

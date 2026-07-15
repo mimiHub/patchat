@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Title from "../../components/common/Title";
-import SearchBox from "../../components/common/SearchBox";
+import { Title, SearchBox } from "../../components/common";
 
 function IndexPage() {
   const navigate = useNavigate();

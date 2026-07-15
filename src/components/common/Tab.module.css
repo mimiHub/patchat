@@ -5,30 +5,93 @@
 .tabList {
   display: flex;
   gap: var(--spacing-2);
-  border-bottom: var(--border-width-thin) solid var(--color-border-default);
 }
 
 .tab,
 .tabActive {
-  padding: var(--spacing-2) var(--spacing-6);
-  border: none;
-  background: none;
   cursor: pointer;
   font-size: var(--font-size-md);
-  color: var(--color-text-secondary);
-  border-bottom: var(--border-width-medium) solid transparent;
+  border: none;
+  background: none;
 }
 
-.tab:hover {
+.tabContent {
+  padding: var(--spacing-4) 0;
+}
+
+/* ---------- underline 스타일 ---------- */
+.list-underline {
+  border-bottom: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.variant-underline {
+  padding: var(--spacing-2) var(--spacing-6);
+  background: none;
+  color: var(--color-text-secondary);
+  border-bottom: var(--border-width-medium) solid transparent;
+  margin-bottom: -1px;
+}
+
+.variant-underline:hover {
   color: var(--color-text-primary);
 }
 
-.tabActive {
+.tabActive.variant-underline {
   color: var(--color-primary-500);
   border-bottom-color: var(--color-primary-500);
   font-weight: var(--font-weight-medium);
 }
 
-.tabContent {
-  padding: var(--spacing-4) 0;
+/* ---------- pill 스타일 ---------- */
+.list-pill {
+  padding: var(--spacing-1);
+  background: var(--color-bg-subtle);
+  border-radius: var(--radius-full);
+  display: inline-flex;
+}
+
+.variant-pill {
+  padding: var(--spacing-1) var(--spacing-6);
+  background: transparent;
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-medium);
+}
+
+.variant-pill:hover {
+  color: var(--color-text-primary);
+}
+
+.tabActive.variant-pill {
+  background: var(--color-primary-500);
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-bold);
+}
+
+/* ---------- solid 스타일 ---------- */
+.list-solid {
+  display: flex;
+  gap: var(--spacing-2);
+  border-bottom: var(--border-width-medium) solid var(--color-primary-500);
+}
+
+.variant-solid {
+  padding: var(--spacing-2) var(--spacing-6);
+  background: var(--color-bg-base);
+  color: var(--color-text-secondary);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-bottom: none;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  margin-right: -1px;
+}
+
+.variant-solid:hover {
+  color: var(--color-text-primary);
+}
+
+.tabActive.variant-solid {
+  background: var(--color-primary-500);
+  color: var(--color-text-inverse);
+  border-color: var(--color-primary-500);
+  font-weight: var(--font-weight-bold);
 }

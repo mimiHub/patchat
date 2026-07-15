@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   BarChart,
   Bar,
@@ -6,32 +7,90 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Cell,
 } from "recharts";
+import { Menu } from "../../components/common";
+import {
+  fieldOptions,
+  topNOptions,
+  chartDataByField,
+} from "./chartData.js";
+import styles from "./Chart.module.css";
 
-const data = [
-  { name: "1월", value: 40 },
-  { name: "2월", value: 65 },
-  { name: "3월", value: 50 },
-  { name: "4월", value: 80 },
-  { name: "5월", value: 35 },
+const BAR_COLORS = [
+  "#ec4899",
+  "#8b5cf6",
+  "#f59e0b",
+  "#10b981",
+  "#3b82f6",
+  "#ef4444",
+  "#06b6d4",
+  "#f97316",
+  "#84cc16",
+  "#6366f1",
 ];
 
-function Chart({ barColor = "var(--color-primary-700)" }) {
+function Chart() {
+  const [selectedFieldId, setSelectedFieldId] = useState("cpc");
+  const [selectedTopNId, setSelectedTopNId] = useState("top5");
+
+  const selectedField = fieldOptions.find((f) => f.id === selectedFieldId);
+  const selectedTopN = topNOptions.find((t) => t.id === selectedTopNId);
+
+  const fullData = chartDataByField[selectedFieldId] || [];
+  const displayData = fullData.slice(0, selectedTopN.value);
+
+  const topNMenuItems = topNOptions.map((option) => ({
+    id: option.id,
+    label: option.label,
+    onClick: () => setSelectedTopNId(option.id),
+  }));
+
   return (
-    <div className="chart-container">
-      <h2>차트 컴포넌트</h2>
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart
-          data={data}
-          margin={{ top: 30, right: 30, left: 0, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Bar dataKey="value" fill={barColor} barSize={40} />
-        </BarChart>
-      </ResponsiveContainer>
+    <div className={styles.container}>
+      <div className={styles.tabRow}>
+        {fieldOptions.map((field) => (
+          <button
+            key={field.id}
+            className={
+              field.id === selectedFieldId ? styles.tabActive : styles.tab
+            }
+            onClick={() => setSelectedFieldId(field.id)}
+          >
+            {field.label}
+          </button>
+        ))}
+      </div>
+
+      <div className={styles.chartCard}>
+        <div className={styles.chartHeader}>
+          <p className={styles.chartTitle}>{selectedField.label}</p>
+          <Menu
+            label={selectedTopN.label}
+            items={topNMenuItems}
+            selectedId={selectedTopNId}
+            dropdownAlign="right"
+          />
+        </div>
+
+        <ResponsiveContainer width="100%" height={400}>
+          <BarChart
+            data={displayData}
+            layout="vertical"
+            margin={{ top: 10, right: 30, left: 40, bottom: 10 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+            <XAxis type="number" />
+            <YAxis type="category" dataKey="name" width={100} />
+            <Tooltip />
+            <Bar dataKey="value" barSize={28} radius={[0, 4, 4, 0]}>
+              {displayData.map((entry, index) => (
+                <Cell key={index} fill={BAR_COLORS[index % BAR_COLORS.length]} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 }

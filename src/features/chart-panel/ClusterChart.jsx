@@ -10,9 +10,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import Card from "../../components/common/Card.jsx";
-import Tab from "../../components/common/Tab.jsx";
-import Badge from "../../components/common/Badge.jsx";
+import { Card, Badge, Tab } from "../../components/common";
 import { clusterData, clusterBubbles } from "./clusterData.js";
 import styles from "./ClusterChart.module.css";
 

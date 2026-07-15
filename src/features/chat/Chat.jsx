@@ -1,11 +1,10 @@
-﻿import { useState, useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
-import Button from "../../components/common/Button.jsx";
+﻿import { useLocation } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Button, SearchBox } from "../../components/common";
 import styles from "../../components/common/Button.module.css";
-import SearchBox from "../../components/common/SearchBox";
 
 const PANEL_BUTTONS = [
-  { type: "chart", label: "막대차트보기" },
+  { type: "chart", label: "차트통계보기" },
   { type: "clusterChart", label: "클러스터차트보기" },
   { type: "patent", label: "특허상세보기" },
   { type: "accordion", label: "특허분류조회" },

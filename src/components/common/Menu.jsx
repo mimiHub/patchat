@@ -14,7 +14,6 @@ function Menu({ label, items }) {
     setIsOpen(false);
   }
 
-  // 메뉴 바깥을 클릭하면 닫히게 처리
   useEffect(() => {
     function handleClickOutside(e) {
       if (menuRef.current && !menuRef.current.contains(e.target)) {

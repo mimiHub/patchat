@@ -9,19 +9,56 @@ function Input({
   label,
   onClick,
   variant = "outlined",
+  options = [],
+  error,
+  size = "md",
+  resizable = false,
 }) {
-  if (type === "textarea") {
+  const sizeClass = styles[`size_${size}`];
+
+  if (type === "select") {
     return (
-      <textarea
-        className={styles.input}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-      />
+      <div className={styles.field}>
+        <select
+          className={`${variant === "plain" ? styles.plain : styles.input} ${sizeClass} ${error ? styles.inputError : ""}`}
+          value={value}
+          onChange={onChange}
+        >
+          <option value="" disabled>
+            {placeholder}
+          </option>
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+        {error && <span className={styles.errorText}>{error}</span>}
+      </div>
     );
   }
 
-  // 커스텀 체크박스
+  if (type === "textarea") {
+    return (
+      <div className={styles.field}>
+        <textarea
+          className={[
+            variant === "plain" ? styles.plain : styles.input,
+            sizeClass,
+            resizable ? styles.resizable : styles.notResizable,
+            error ? styles.inputError : "",
+          ]
+            .filter(Boolean)
+            .join(" ")}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+        />
+        {error && <span className={styles.errorText}>{error}</span>}
+      </div>
+    );
+  }
+
   if (type === "checkbox") {
     return (
       <label className={styles.checkLabel}>
@@ -37,7 +74,6 @@ function Input({
     );
   }
 
-  // 커스텀 라디오
   if (type === "radio") {
     return (
       <label className={styles.checkLabel}>
@@ -53,7 +89,6 @@ function Input({
     );
   }
 
-  // 커스텀 스위치(토글)
   if (type === "switch") {
     return (
       <label className={styles.checkLabel}>
@@ -75,7 +110,7 @@ function Input({
         type={type}
         value={value}
         onClick={onClick}
-        className={styles.submitButton}
+        className={`${styles.submitButton} ${sizeClass}`}
       />
     );
   }
@@ -87,13 +122,16 @@ function Input({
   }
 
   return (
-    <input
-      type={type}
-      className={variant === "plain" ? styles.plain : styles.input}
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-    />
+    <div className={styles.field}>
+      <input
+        type={type}
+        className={`${variant === "plain" ? styles.plain : styles.input} ${sizeClass} ${error ? styles.inputError : ""}`}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+      />
+      {error && <span className={styles.errorText}>{error}</span>}
+    </div>
   );
 }
 

@@ -16,7 +16,6 @@
   pointer-events: none;
 }
 
-/* 위쪽 */
 .top {
   bottom: calc(100% + var(--spacing-2));
   left: 50%;
@@ -33,7 +32,6 @@
   border-top-color: var(--color-gray-900);
 }
 
-/* 아래쪽 */
 .bottom {
   top: calc(100% + var(--spacing-2));
   left: 50%;
@@ -50,7 +48,6 @@
   border-bottom-color: var(--color-gray-900);
 }
 
-/* 왼쪽 */
 .left {
   right: calc(100% + var(--spacing-2));
   top: 50%;
@@ -67,7 +64,6 @@
   border-left-color: var(--color-gray-900);
 }
 
-/* 오른쪽 */
 .right {
   left: calc(100% + var(--spacing-2));
   top: 50%;

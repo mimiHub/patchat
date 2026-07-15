@@ -1,0 +1,15 @@
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 var(--spacing-4);
+  background-color: var(--color-bg-base);
+  flex-shrink: 0;
+}
+
+.rightSlot {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}

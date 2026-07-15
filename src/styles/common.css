@@ -6,6 +6,15 @@
   min-height: 100vh;
 }
 
+.content-area {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
 /* ===========================
    랜딩페이지
 =========================== */
@@ -172,7 +181,7 @@
   padding: var(--spacing-10) var(--spacing-6) var(--spacing-5);
   flex: 4;
   justify-content: center;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   box-sizing: border-box;
   min-width: 450px;
@@ -192,7 +201,12 @@
   max-width: 700px;
   height: 100%;
 }
-
+.chat-page-row {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
 .chat-messages {
   flex: 1;
   gap: 10px;
@@ -247,15 +261,18 @@
 .side-panel {
   flex: 6;
   background: var(--color-bg-subtle);
-  border-left: var(--border-width-thin) solid var(--color-border-default);
-  padding: var(--spacing-6);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-right: none;
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+  padding: var(--spacing-2) var(--spacing-4);
   position: relative;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   box-sizing: border-box;
   min-width: 400px;
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-2);
 }
 .side-panel-header {
   display: flex;

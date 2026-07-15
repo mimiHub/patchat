@@ -1,22 +1,36 @@
 .container {
   display: flex;
+  flex-direction: column;
   gap: var(--spacing-4);
   height: 100%;
 }
 
-.treeWrapper {
-  width: 320px;
-  flex-shrink: 0;
-  overflow-y: auto;
-  border-right: var(--border-width-thin) solid var(--color-border-default);
-  padding-right: var(--spacing-3);
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .title {
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
-  margin: 0 0 var(--spacing-3) 0;
+  margin: 0;
+}
+
+.selectedBadge {
+  padding: var(--spacing-2) var(--spacing-4);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-base);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.selectedBadge:hover {
+  background-color: var(--color-bg-subtle);
 }
 
 .rootList,
@@ -49,13 +63,13 @@
 }
 
 .toggleBtn {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   flex-shrink: 0;
   border: var(--border-width-thin) solid var(--color-border-default);
   border-radius: var(--radius-sm);
   background: var(--color-bg-base);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   line-height: 1;
   cursor: pointer;
   display: flex;
@@ -65,7 +79,7 @@
 }
 
 .toggleSpacer {
-  width: 18px;
+  width: 22px;
   flex-shrink: 0;
 }
 
@@ -79,15 +93,4 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.detailWrapper {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.placeholder {
-  color: var(--color-text-tertiary);
-  font-size: var(--font-size-sm);
-  padding: var(--spacing-4);
 }

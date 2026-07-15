@@ -1,6 +1,6 @@
 ﻿import { useState } from "react";
 import { patentList } from "../patent-panel/patentData.js";
-import Button from "../../components/common/Button.jsx";
+import { Button } from "../../components/common";
 import btnStyles from "../../components/common/Button.module.css";
 import styles from "./Gallery.module.css";
 

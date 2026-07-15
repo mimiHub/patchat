@@ -1,42 +1,92 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import TreeNode from "./TreeNode.jsx";
-import Card from "../../components/common/Card.jsx";
+import ClassificationDetail from "./ClassificationDetail.jsx";
 import { classificationTree } from "./classificationData.js";
 import styles from "./ClassificationTree.module.css";
+import { Input, Tab } from "../../components/common";
+
+const SYSTEM_TABS = [
+  { label: "IPC(영문)" },
+  { label: "IPC(한글)" },
+  { label: "CPC(영문)" },
+];
+
+function filterTree(nodes, query) {
+  if (!query.trim()) return nodes;
+  const q = query.toLowerCase();
+
+  return nodes
+    .map((node) => {
+      const filteredChildren = filterTree(node.children || [], query);
+      const isMatch =
+        node.code.toLowerCase().includes(q) ||
+        node.label.toLowerCase().includes(q);
+
+      if (isMatch || filteredChildren.length > 0) {
+        return { ...node, children: filteredChildren };
+      }
+      return null;
+    })
+    .filter(Boolean);
+}
 
 function ClassificationTree() {
+  const [activeSystem, setActiveSystem] = useState(0);
+  const [query, setQuery] = useState("");
   const [selectedNode, setSelectedNode] = useState(classificationTree[0]);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
+
+  const visibleTree = useMemo(
+    () => filterTree(classificationTree, query),
+    [query],
+  );
 
   return (
     <div className={styles.container}>
-      <div className={styles.treeWrapper}>
+      <div className={styles.headerRow}>
         <p className={styles.title}>특허분류조회</p>
-        <ul className={styles.rootList}>
-          {classificationTree.map((node) => (
-            <TreeNode
-              key={node.code}
-              node={node}
-              depth={0}
-              selectedCode={selectedNode?.code}
-              onSelect={setSelectedNode}
-            />
-          ))}
-        </ul>
-      </div>
-
-      <div className={styles.detailWrapper}>
-        {selectedNode ? (
-          <Card
-            className="fillCard"
-            title={`[${selectedNode.code}] ${selectedNode.label}`}
-            description={selectedNode.description}
-          />
-        ) : (
-          <p className={styles.placeholder}>
-            좌측 분류를 선택하면 상세 설명이 표시됩니다.
-          </p>
+        {selectedNode && (
+          <button
+            type="button"
+            className={styles.selectedBadge}
+            onClick={() => setIsDetailOpen(true)}
+          >
+            {selectedNode.code} 분류 명세
+          </button>
         )}
       </div>
+
+      <Tab
+        tabs={SYSTEM_TABS}
+        activeIndex={activeSystem}
+        onChange={setActiveSystem}
+      />
+
+      <Input
+        type="text"
+        placeholder="예: B03B1/00, weed"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+
+      <ul className={styles.rootList}>
+        {visibleTree.map((node) => (
+          <TreeNode
+            key={node.code}
+            node={node}
+            depth={0}
+            selectedCode={selectedNode?.code}
+            onSelect={setSelectedNode}
+          />
+        ))}
+      </ul>
+
+      <ClassificationDetail
+        isOpen={isDetailOpen}
+        onClose={() => setIsDetailOpen(false)}
+        selectedCode={selectedNode?.code}
+        onBackToTree={() => setIsDetailOpen(false)}
+      />
     </div>
   );
 }

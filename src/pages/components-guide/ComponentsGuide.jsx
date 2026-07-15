@@ -1,13 +1,15 @@
 ﻿import { useState } from "react";
-import Button from "../../components/common/Button.jsx";
-import Card from "../../components/common/Card.jsx";
-import Input from "../../components/common/Input.jsx";
-import Badge from "../../components/common/Badge.jsx";
-import Title from "../../components/common/Title.jsx";
-import Tab from "../../components/common/Tab.jsx";
-import Menu from "../../components/common/Menu.jsx";
-import Tooltip from "../../components/common/Tooltip.jsx";
-import Popup from "../../components/common/Popup.jsx";
+import {
+  Button,
+  Card,
+  Input,
+  Badge,
+  Title,
+  Tab,
+  Menu,
+  Tooltip,
+  Popup,
+} from "../../components/common";
 import styles from "./ComponentsGuide.module.css";
 
 const guideList = [
@@ -312,36 +314,55 @@ action={<Badge variant="success">완료</Badge>}>
             </pre>
           </section>
         )}
-
         {selectedId === "tab" && (
           <section>
             <Title level={2}>Tab</Title>
             <Title level="caption">클릭으로 전환되는 탭 메뉴</Title>
+
+            <p style={{ marginTop: "16px" }}>variant="underline" (기본값)</p>
             <div className={styles.previewBox}>
               <Tab
+                variant="underline"
                 tabs={[
-                  {
-                    label: "개요",
-                    content: <p>여기에 개요 내용이 들어갑니다.</p>,
-                  },
-                  {
-                    label: "상세",
-                    content: <p>여기에 상세 내용이 들어갑니다.</p>,
-                  },
-                  {
-                    label: "리뷰",
-                    content: <p>여기에 리뷰 내용이 들어갑니다.</p>,
-                  },
+                  { label: "탭1", content: <p>underline 탭 내용 1</p> },
+                  { label: "탭2", content: <p>underline 탭 내용 2</p> },
                 ]}
               />
             </div>
+
+            <p style={{ marginTop: "16px" }}>variant="pill"</p>
+            <div className={styles.previewBox}>
+              <Tab
+                variant="pill"
+                tabs={[
+                  { label: "탭1", content: <p>pill 탭 내용 1</p> },
+                  { label: "탭2", content: <p>pill 탭 내용 2</p> },
+                ]}
+              />
+            </div>
+
+            <p style={{ marginTop: "16px" }}>variant="solid" (FAQ에서 사용 중)</p>
+            <div className={styles.previewBox}>
+              <Tab
+                variant="solid"
+                tabs={[
+                  { label: "탭1", content: <p>solid 탭 내용 1</p> },
+                  { label: "탭2", content: <p>solid 탭 내용 2</p> },
+                ]}
+              />
+            </div>
+
             <pre className={styles.codeBlock}>
               {`<Tab
-  tabs={[
-    { label: "개요", content: <p>개요 내용</p> },
-    { label: "상세", content: <p>상세 내용</p> },
-  ]}
-/>`}
+          variant="underline" // 기본값
+          tabs={[
+            { label: "탭1", content: <p>내용 1</p> },
+            { label: "탭2", content: <p>내용 2</p> },
+          ]}
+        />
+
+        <Tab variant="pill" tabs={[...]} />
+        <Tab variant="solid" tabs={[...]} />`}
             </pre>
           </section>
         )}

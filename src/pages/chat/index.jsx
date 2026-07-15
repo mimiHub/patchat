@@ -23,8 +23,8 @@ function ChatPage() {
   const PanelContent = panelComponents[panelType];
 
   return (
-    <>
-      <main className="chat-main">
+  <div className="chat-page-row">
+    <main className="chat-main">
         <Chat onPanelOpen={(type) => setPanelType(type)} />
       </main>
 
@@ -37,7 +37,7 @@ function ChatPage() {
           />
         </SidePanel>
       )}
-    </>
+    </div>
   );
 }
 

@@ -1,0 +1,29 @@
+.headerRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--spacing-3);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.codeCell {
+  width: 140px;
+  padding: var(--spacing-3);
+  background-color: var(--color-bg-subtle);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  text-align: center;
+  border: var(--border-width-thin) solid var(--color-border-default);
+  vertical-align: top;
+}
+
+.labelCell {
+  padding: var(--spacing-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  line-height: var(--line-height-relaxed, 1.6);
+}

@@ -1,0 +1,10 @@
+.searchBox {
+  display: flex;
+  align-items: center;
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-3) var(--spacing-4);
+  width: 100%;
+  max-width: 700px;
+  gap: var(--spacing-3);
+}

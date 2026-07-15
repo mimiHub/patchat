@@ -209,4 +209,14 @@
   --nav-icon-size: 20px;
   --nav-item-height: var(--control-height-md);
   --nav-item-gap: 10px;
+
+  /* ---------------------------------------------
+     Component / Popup / Modal
+     --------------------------------------------- */
+  --color-bg-overlay: rgba(0, 0, 0, 0.5);
+  --color-bg-base: var(--color-gray-0);
+  --z-index-modal: 1000;
+  --z-index-panel: 900;
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }

@@ -318,6 +318,23 @@
   outline: none;
 }
 
+.searchHistoryList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.searchHistoryItem {
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.searchHistoryItem:hover {
+  background: var(--nav-hover-overlay);
+}
 /* 하단 고정: 사용자 정보 */
 .footer {
   flex-shrink: 0;

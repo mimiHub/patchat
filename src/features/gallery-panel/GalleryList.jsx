@@ -1,43 +1,52 @@
 ﻿import { useState } from "react";
-import { sculptureList } from "./data.js";
+import { patentList } from "../patent-panel/patentData.js";
 import Button from "../../components/common/Button.jsx";
-import styles from "../../components/common/Button.module.css";
+import btnStyles from "../../components/common/Button.module.css";
+import styles from "./Gallery.module.css";
 
-export default function Gallery() {
+function GalleryList({ selectedPatentId }) {
+  const patent =
+    patentList.find((p) => p.id === selectedPatentId) || patentList[0];
+  const drawings = patent.drawings || [];
   const [index, setIndex] = useState(0);
 
   function handleNextClick() {
-    if (index === sculptureList.length - 1) {
-      setIndex(0);
-    } else {
-      setIndex(index + 1);
-    }
+    setIndex((prev) => (prev === drawings.length - 1 ? 0 : prev + 1));
   }
 
   function handlePrevClick() {
-    if (index === 0) {
-      setIndex(sculptureList.length - 1);
-    } else {
-      setIndex(index - 1);
-    }
+    setIndex((prev) => (prev === 0 ? drawings.length - 1 : prev - 1));
   }
 
-  let sculpture = sculptureList[index];
+  if (drawings.length === 0) {
+    return <p className={styles.empty}>등록된 도면이 없습니다.</p>;
+  }
+
+  const current = drawings[index];
+
   return (
-    <>
-      <div className={styles["btn-group"]}>
-        <Button onClick={handlePrevClick}>Previous</Button>
-        <Button onClick={handleNextClick}>Next</Button>
+    <div className={styles.container}>
+      <p className={styles.patentTitle}>{patent.title}</p>
+      <p className={styles.patentNumber}>{patent.patentNumber}</p>
+
+      <div className={styles.controlRow}>
+        <div className={`${btnStyles["btn-group"]} ${styles.galleryBtnGroup}`}>
+          <Button variant="secondary" size="sm" onClick={handlePrevClick}>
+            Previous
+          </Button>
+          <Button variant="secondary" size="sm" onClick={handleNextClick}>
+            Next
+          </Button>
+        </div>
+
+        <p className={styles.counter}>
+          {index + 1} / {drawings.length}
+        </p>
       </div>
-      <h2>
-        <i>{sculpture.name} </i>
-        by {sculpture.artist}
-      </h2>
-      <h3>
-        ({index + 1} of {sculptureList.length})
-      </h3>
-      <img src={sculpture.url} alt={sculpture.alt} />
-      <p>{sculpture.description}</p>
-    </>
+
+      <img className={styles.image} src={current.url} alt={current.alt} />
+    </div>
   );
 }
+
+export default GalleryList;

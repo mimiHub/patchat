@@ -1,10 +1,14 @@
-/* 전체 레이아웃 */
+/* ===========================
+   전체 레이아웃
+=========================== */
 .main-container {
   display: flex;
   min-height: 100vh;
 }
 
-/* 랜딩 메인 */
+/* ===========================
+   랜딩페이지
+=========================== */
 .landing {
   flex: 1;
   display: flex;
@@ -15,6 +19,7 @@
   gap: var(--spacing-10);
 }
 
+/* --- 랜딩 상단 배너 --- */
 .landing-header {
   display: flex;
   justify-content: space-between;
@@ -24,9 +29,19 @@
   gap: var(--spacing-5);
   color: var(--color-text-secondary);
 }
-.landing-header .title{
+
+@media (max-width: 1023px) {
+  .landing-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+  }
+}
+
+.landing-header .title {
   font-weight: var(--font-weight-medium);
 }
+
 .btn-primary {
   background: var(--color-primary-500);
   color: var(--color-text-inverse);
@@ -41,6 +56,7 @@
   background: var(--color-primary-600);
 }
 
+/* --- 랜딩 히어로 (타이틀 + 추천 질문) --- */
 .landing-hero {
   display: flex;
   gap: var(--spacing-10);
@@ -48,9 +64,22 @@
   width: 100%;
   max-width: 700px;
 }
+
+@media (max-width: 1023px) {
+  .landing-hero {
+    flex-direction: column;
+  }
+  .hero-text,
+  .suggestions {
+    flex: none;
+    width: 100%;
+  }
+}
+
 .hero-text {
   flex: 4;
 }
+
 .hero-text h1 {
   font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-bold);
@@ -98,7 +127,9 @@
   color: var(--color-text-primary);
 }
 
-/* 검색창 */
+/* ===========================
+   검색창 (랜딩 / 채팅 공용)
+=========================== */
 .search-box {
   display: flex;
   align-items: center;
@@ -133,18 +164,33 @@
   background: var(--color-gray-800);
 }
 
-/* 채팅 페이지 */
+/* ===========================
+   채팅 페이지
+=========================== */
 .chat-main {
   display: flex;
   padding: var(--spacing-10) var(--spacing-6) var(--spacing-5);
-  flex: 1;
+  flex: 4;
   justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
+  min-width: 450px;
 }
+
+@media (max-width: 1023px) {
+  .chat-main {
+    padding: var(--spacing-6) var(--spacing-4) var(--spacing-4);
+    min-width: 0; /* 태블릿에서는 최소너비 제약 해제, 화면폭 우선 */
+  }
+}
+
 .chat-container {
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 700px;
+  height: 100%;
 }
 
 .chat-messages {
@@ -152,6 +198,8 @@
   gap: 10px;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  padding-right: var(--spacing-4);
 }
 
 .chat-bubble {
@@ -162,10 +210,12 @@
   flex-direction: column;
   gap: var(--spacing-2);
 }
+
 .message.sent {
   display: flex;
   justify-content: flex-end;
 }
+
 .message.sent .chat-bubble {
   background: var(--color-primary-500);
   color: var(--color-text-inverse);
@@ -185,19 +235,52 @@
   color: var(--color-text-tertiary);
   text-align: center;
 }
+
 .panel-btn {
   display: flex;
   gap: var(--spacing-2);
 }
 
-/* 우측 패널 */
+/* ===========================
+   우측 패널 (SidePanel)
+=========================== */
 .side-panel {
-  width: 660px;
+  flex: 6;
   background: var(--color-bg-subtle);
   border-left: var(--border-width-thin) solid var(--color-border-default);
   padding: var(--spacing-6);
   position: relative;
+  height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
+  min-width: 400px;
+  display: flex;
+  flex-direction: column;
 }
+.side-panel-header {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.side-panel-content {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+@media (max-width: 1023px) {
+  .side-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(660px, 90vw);
+    flex: none;
+    z-index: var(--z-index-panel);
+    box-shadow: var(--shadow-xl);
+  }
+}
+
 .side-panel-header {
   display: flex;
   justify-content: end;
@@ -212,6 +295,7 @@
   border-radius: var(--radius-sm);
   padding: var(--spacing-1) var(--spacing-3);
 }
+
 .time {
   font-size: var(--font-size-xs);
 }
@@ -220,9 +304,21 @@
    레이아웃 유틸리티
    여러 컴포넌트에서 공통으로 재사용
 =========================== */
+
+.fillCard {
+  flex: 1;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.scrollCard {
+  max-height: 300px;
+  overflow-y: auto;
+}
 .fullWidth {
   width: 100%;
 }
+
 .align-left {
   display: flex;
   justify-content: flex-start;
@@ -237,6 +333,7 @@
   display: flex;
   justify-content: flex-end;
 }
+
 .alignSpaceBetween {
   display: flex;
   justify-content: space-between;

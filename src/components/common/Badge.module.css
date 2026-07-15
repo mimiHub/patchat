@@ -1,7 +1,9 @@
 .default,
 .success,
 .warning,
-.error {
+.error,
+.outline,
+.primary {
   display: inline-block;
   padding: var(--spacing-1) var(--spacing-2);
   border-radius: var(--radius-full);
@@ -28,4 +30,15 @@
 .error {
   background-color: var(--color-error-light);
   color: var(--color-error);
+}
+
+.outline {
+  background-color: transparent;
+  border: var(--border-width-thin) solid var(--color-border-default);
+  color: var(--color-text-secondary);
+}
+
+.primary {
+  background-color: var(--color-primary-100);
+  color: var(--color-primary-700);
 }

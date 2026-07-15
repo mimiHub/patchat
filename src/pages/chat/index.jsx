@@ -2,20 +2,24 @@
 import SidePanel from "../../layouts/SidePanel/SidePanel";
 import Chat from "../../features/chat/Chat";
 
-import Accordion from "../../features/accordion-panel/Accordion";
+import ClassificationTree from "../../features/classification-panel/ClassificationTree";
 import Chart from "../../features/chart-panel/Chart";
+import ClusterChart from "../../features/chart-panel/ClusterChart";
 import Patent from "../../features/patent-panel/Patent";
 import GalleryList from "../../features/gallery-panel/GalleryList";
+import { patentList } from "../../features/patent-panel/patentData.js";
 
 const panelComponents = {
-  accordion: Accordion,
+  accordion: ClassificationTree,
   chart: Chart,
+  clusterChart: ClusterChart,
   patent: Patent,
   GalleryList: GalleryList,
 };
 
 function ChatPage() {
   const [panelType, setPanelType] = useState(null);
+  const [selectedPatentId, setSelectedPatentId] = useState(patentList[0].id);
   const PanelContent = panelComponents[panelType];
 
   return (
@@ -26,7 +30,11 @@ function ChatPage() {
 
       {panelType && (
         <SidePanel onClose={() => setPanelType(null)}>
-          <PanelContent />
+          <PanelContent
+            selectedPatentId={selectedPatentId}
+            onSelectPatentId={setSelectedPatentId}
+            onViewMore={() => setPanelType("GalleryList")}
+          />
         </SidePanel>
       )}
     </>

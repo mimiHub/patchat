@@ -1,7 +1,8 @@
 // src/components/Nav.jsx
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styles from "./Nav.module.css";
+import Popup from "../../components/common/Popup";
 import {
   IconSidebar,
   IconNewChat,
@@ -23,6 +24,12 @@ function Nav() {
   const [editingId, setEditingId] = useState(null);
   const [editValue, setEditValue] = useState("");
   const menuRef = useRef(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const navigate = useNavigate();
+
+  function handleHistoryClick(title) {
+    navigate("/chat", { state: { initialMessage: title } });
+  }
 
   // 메뉴 바깥 클릭 시 닫기
   useEffect(() => {
@@ -114,7 +121,11 @@ function Nav() {
           </Link>
         </li>
         <li className={styles.menuItem}>
-          <button type="button" className={styles.menuLink}>
+          <button
+            type="button"
+            className={styles.menuLink}
+            onClick={() => setIsSearchOpen(true)}
+          >
             <span className={styles.icon}>
               <IconSearch />
             </span>
@@ -147,7 +158,11 @@ function Nav() {
                     className={styles.historyRow}
                     ref={openMenuId === item.id ? menuRef : null}
                   >
-                    <button type="button" className={styles.historyLink}>
+                    <button
+                      type="button"
+                      className={styles.historyLink}
+                      onClick={() => handleHistoryClick(item.title)}
+                    >
                       {item.pinned && (
                         <span className={styles.pinMark}>
                           <IconPin className={styles.pinIcon} />
@@ -206,6 +221,27 @@ function Nav() {
           <span className={styles.label}>사용자 정보</span>
         </button>
       </div>
+
+      <Popup
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+        title="최근 검색"
+      >
+        <ul className={styles.searchHistoryList}>
+          {history.map((item) => (
+            <li
+              key={item.id}
+              className={styles.searchHistoryItem}
+              onClick={() => {
+                setIsSearchOpen(false);
+                handleHistoryClick(item.title);
+              }}
+            >
+              {item.title}
+            </li>
+          ))}
+        </ul>
+      </Popup>
     </nav>
   );
 }

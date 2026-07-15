@@ -9,6 +9,7 @@ function Button({
   size = "md",
   className = "",
   type = "button",
+  disabled = false,
 }) {
   const combinedClassName = [
     styles.base,
@@ -22,7 +23,12 @@ function Button({
     .join(" ");
 
   return (
-    <button type={type} className={combinedClassName} onClick={onClick}>
+    <button
+      type={type}
+      className={combinedClassName}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

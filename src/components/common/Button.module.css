@@ -76,3 +76,8 @@
   background: var(--color-gray-800);
   opacity: 1;
 }
+.base:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}

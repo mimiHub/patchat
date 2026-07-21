@@ -1,5 +1,5 @@
-// src/components/Nav.jsx
-import { useState, useRef, useEffect } from "react";
+// src/layouts/Nav/Nav.jsx
+import { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./Nav.module.css";
 import { Popup } from "../../components/common";
@@ -11,6 +11,9 @@ import {
   IconPin,
   IconMore,
 } from "./icons";
+import { useHistoryList } from "../../features/history/useHistoryList";
+import { useClickOutside } from "../../hooks/useClickOutside";
+
 const INITIAL_HISTORY = [
   { id: "1", title: "삼성전자 최근 특허 동향 알려줘", pinned: false },
   { id: "2", title: "QLC 메모리 관련 선행특허 조사해줘", pinned: false },
@@ -24,75 +27,34 @@ const INITIAL_HISTORY = [
 
 function Nav() {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [history, setHistory] = useState(INITIAL_HISTORY);
-  const [openMenuId, setOpenMenuId] = useState(null);
-  const [editingId, setEditingId] = useState(null);
-  const [editValue, setEditValue] = useState("");
-  const menuRef = useRef(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const menuRef = useRef(null);
   const navigate = useNavigate();
 
-  function handleHistoryClick(title) {
-    navigate("/chat", { state: { initialMessage: title } });
-  }
+  const {
+    history,
+    openMenuId,
+    editingId,
+    editValue,
+    setEditValue,
+    handleMoreClick,
+    closeMenu,
+    handleStartRename,
+    handleConfirmRename,
+    cancelRename,
+    handleTogglePin,
+    handleDelete,
+  } = useHistoryList(INITIAL_HISTORY);
 
-  // 메뉴 바깥 클릭 시 닫기
-  useEffect(() => {
-    function handleClickOutside(e) {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setOpenMenuId(null);
-      }
-    }
-    if (openMenuId) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [openMenuId]);
+  useClickOutside(menuRef, closeMenu, Boolean(openMenuId));
 
   function handleToggle() {
     setIsExpanded((prev) => !prev);
   }
 
-  function handleMoreClick(e, id) {
-    e.stopPropagation();
-    setOpenMenuId((prev) => (prev === id ? null : id));
+  function handleHistoryClick(title) {
+    navigate("/chat", { state: { initialMessage: title } });
   }
-
-  function handleStartRename(item) {
-    setEditingId(item.id);
-    setEditValue(item.title);
-    setOpenMenuId(null);
-  }
-
-  function handleConfirmRename(id) {
-    setHistory((prev) =>
-      prev.map((item) =>
-        item.id === id && editValue.trim()
-          ? { ...item, title: editValue.trim() }
-          : item,
-      ),
-    );
-    setEditingId(null);
-  }
-
-  function handleTogglePin(id) {
-    setHistory((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, pinned: !item.pinned } : item,
-      ),
-    );
-    setOpenMenuId(null);
-  }
-
-  function handleDelete(id) {
-    setHistory((prev) => prev.filter((item) => item.id !== id));
-    setOpenMenuId(null);
-  }
-
-  // 고정된 항목 먼저, 나머지는 기존 순서 유지
-  const sortedHistory = [...history].sort(
-    (a, b) => Number(b.pinned) - Number(a.pinned),
-  );
 
   return (
     <nav
@@ -143,7 +105,7 @@ function Nav() {
         <div className={styles.historySection}>
           <p className={styles.sectionTitle}>최근 항목</p>
           <ul className={styles.historyList}>
-            {sortedHistory.map((item) => (
+            {history.map((item) => (
               <li key={item.id} className={styles.historyItem}>
                 {editingId === item.id ? (
                   <input
@@ -155,7 +117,7 @@ function Nav() {
                     onBlur={() => handleConfirmRename(item.id)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") handleConfirmRename(item.id);
-                      if (e.key === "Escape") setEditingId(null);
+                      if (e.key === "Escape") cancelRename();
                     }}
                   />
                 ) : (
@@ -173,13 +135,18 @@ function Nav() {
                           <IconPin className={styles.pinIcon} />
                         </span>
                       )}
-                      <span className={styles.historyTitle}>{item.title}</span>
+                      <span className={styles.historyTitle}>
+                        {item.title}
+                      </span>
                     </button>
 
                     <button
                       type="button"
                       className={styles.moreBtn}
-                      onClick={(e) => handleMoreClick(e, item.id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleMoreClick(item.id);
+                      }}
                       aria-label="더보기"
                     >
                       <IconMore className={styles.moreIcon} />

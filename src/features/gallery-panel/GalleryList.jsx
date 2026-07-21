@@ -1,6 +1,6 @@
 ﻿import { useState } from "react";
 import { patentList } from "../patent-panel/patentData.js";
-import { Button } from "../../components/common";
+import { Button, Title } from "../../components/common";
 import btnStyles from "../../components/common/Button.module.css";
 import styles from "./Gallery.module.css";
 
@@ -26,7 +26,7 @@ function GalleryList({ selectedPatentId }) {
 
   return (
     <div className={styles.container}>
-      <p className={styles.patentTitle}>{patent.title}</p>
+      <Title level={4} className={styles.patentTitle}>{patent.title}</Title>
       <p className={styles.patentNumber}>{patent.patentNumber}</p>
 
       <div className={styles.controlRow}>

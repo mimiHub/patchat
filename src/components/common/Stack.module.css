@@ -41,7 +41,9 @@
 .align_stretch {
   align-items: stretch;
 }
-
+.align_baseline {
+  align-items: baseline;
+}
 .justify_start {
   justify-content: flex-start;
 }

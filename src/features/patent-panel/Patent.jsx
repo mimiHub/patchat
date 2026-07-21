@@ -1,5 +1,5 @@
 import { patentList } from "./patentData.js";
-import { Card, Tab, Badge, Button } from "../../components/common";
+import { Card, Tab, Badge, Button, Title, Stack } from "../../components/common";
 import styles from "./Patent.module.css";
 
 function Patent({ selectedPatentId, onSelectPatentId, onViewMore }) {
@@ -24,10 +24,10 @@ function Patent({ selectedPatentId, onSelectPatentId, onViewMore }) {
   return (
     <div className={styles.container}>
       <div className={styles.listWrapper}>
-        <p className={styles.listHeader}>
-          특허리스트{" "}
+        <Stack justify="between" align="baseline"  className={styles.listHeader}>
+          <Title level={4}>특허리스트</Title>
           <span className={styles.listCount}>총 {patentList.length}건</span>
-        </p>
+        </Stack>
         <ul className={styles.list}>
           {patentList.map((patent) => (
             <li

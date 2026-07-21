@@ -8,11 +8,17 @@
   transition: width 0.2s ease;
   overflow: hidden;
 }
-
 .expanded {
   width: var(--nav-width-expanded);
 }
-
+@media (max-width: 1023px) {
+  .expanded {
+    position: fixed;
+    inset: 0 auto 0 0; /* top:0, right:auto, bottom:0, left:0 */
+    z-index: var(--z-index-nav);
+    box-shadow: var(--shadow-xl);
+  }
+}
 /* 상단 로고/토글 */
 .header {
   display: flex;

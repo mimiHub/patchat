@@ -15,32 +15,34 @@ function IndexPage() {
 
   return (
     <main className="landing">
-      <header className="landing-header">
+<div className="landing-scroll">
+       <header className="landing-header">
         <Title level={2} weight="regular">
           Patchat만의 특허관련 DB와 AI채팅을 통해 다양한 특허 탐색을 제공합니다.
-        </Title>
-        <button className="btn-primary">비지니스 제안 문의</button>
-      </header>
+         </Title>
+         <button className="btn-primary">비지니스 제안 문의</button>
+       </header>
 
-      <section className="landing-hero">
-        <div className="hero-text">
-          <Title level={2} weight="regular">
-            무한한 가능성을 여는 새로운 대화의 시작
-          </Title>
-          <Title level={1}>PATCHAT</Title>
-          <p className="sub">특허에 관한 모든것, Patchat와 함께 대화해 보세요.</p>
-        </div>
-        <ul className="suggestions">
-          {suggestions.map((text, i) => (
-            <li key={i}>
-              <span>{i + 1}</span>
-              <button onClick={() => goToChat(text)}>{text}</button>
-            </li>
-          ))}
-        </ul>
-      </section>
+       <section className="landing-hero">
+         <div className="hero-text">
+           <Title level={2} weight="regular">
+             무한한 가능성을 여는 새로운 대화의 시작
+           </Title>
+           <Title level={1}>PATCHAT</Title>
+           <p className="sub">특허에 관한 모든것, Patchat와 함께 대화해 보세요.</p>
+         </div>
+         <ul className="suggestions">
+           {suggestions.map((text, i) => (
+             <li key={i}>
+               <span>{i + 1}</span>
+               <button onClick={() => goToChat(text)}>{text}</button>
+             </li>
+           ))}
+         </ul>
+       </section>
+     </div>
 
-      <SearchBox onSubmit={goToChat} />
+     <SearchBox onSubmit={goToChat} />
     </main>
   );
 }

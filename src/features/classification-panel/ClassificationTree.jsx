@@ -3,7 +3,7 @@ import TreeNode from "./TreeNode.jsx";
 import ClassificationDetail from "./ClassificationDetail.jsx";
 import { classificationTree } from "./classificationData.js";
 import styles from "./ClassificationTree.module.css";
-import { Input, Tab } from "../../components/common";
+import { Input, Tab, Title, Stack } from "../../components/common";
 
 const SYSTEM_TABS = [
   { label: "IPC(영문)" },
@@ -43,8 +43,8 @@ function ClassificationTree() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.headerRow}>
-        <p className={styles.title}>특허분류조회</p>
+      <Stack justify="between" align="center">
+        <Title level={4} className={styles.title}>특허분류조회</Title>
         {selectedNode && (
           <button
             type="button"
@@ -54,7 +54,7 @@ function ClassificationTree() {
             {selectedNode.code} 분류 명세
           </button>
         )}
-      </div>
+      </Stack>
 
       <Tab
         tabs={SYSTEM_TABS}

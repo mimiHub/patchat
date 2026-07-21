@@ -10,7 +10,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import { Card, Badge, Tab , PillTabs } from "../../components/common";
+import { Card, Badge, Tab, PillTabs, Title } from "../../components/common";
 import { clusterData, clusterBubbles } from "./clusterData.js";
 import styles from "./ClusterChart.module.css";
 
@@ -61,7 +61,7 @@ function ClusterChart() {
       )}
 
       <div className={styles.chartHeader}>
-        <p className={styles.chartTitle}>클러스터 차트</p>
+        <Title level={4} className={styles.chartTitle}>클러스터 차트</Title>
         <p className={styles.chartCount}>
           전체 클러스터: <strong>{clusterData.length - 1}건</strong>
         </p>

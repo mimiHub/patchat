@@ -16,7 +16,7 @@ function Card({
   return (
     <div className={`${styles.card} ${className}`}>
       {title && (
-        <Title level={3} action={headerAction}>
+        <Title level={4} action={headerAction}>
           {title}
         </Title>
       )}

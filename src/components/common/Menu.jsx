@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import styles from "./Menu.module.css";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
 function Menu({
   label,
@@ -13,6 +14,8 @@ function Menu({
   const [menuPosition, setMenuPosition] = useState(null);
   const menuRef = useRef(null);
   const triggerRef = useRef(null);
+
+  useClickOutside(menuRef, () => setIsOpen(false), isOpen);
 
   function handleToggle() {
     if (!isOpen && triggerRef.current) {
@@ -31,16 +34,6 @@ function Menu({
     item.onClick();
     setIsOpen(false);
   }
-
-  useEffect(() => {
-    function handleClickOutside(e) {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   const dropdownStyle = menuPosition
     ? {
@@ -94,7 +87,6 @@ function Menu({
           </svg>
         </button>
       )}
-
       {isOpen && (
         <ul className={styles.menuListFixed} style={dropdownStyle}>
           {items.map((item) => (

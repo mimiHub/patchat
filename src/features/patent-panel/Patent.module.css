@@ -3,7 +3,23 @@
   gap: var(--spacing-4);
   height: 100%;
 }
+@media (max-width: 767px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+  }
 
+  .listWrapper {
+    width: 100% !important;
+    max-height: 240px;
+    border-right: none;
+    border-bottom: var(--border-width-thin) solid var(--color-border-default);
+  }
+
+  .detail {
+    overflow-y: visible; /* 바깥 SidePanel 스크롤에 맡김 */
+  }
+}
 .listWrapper {
   width: 250px;
   flex-shrink: 0;
@@ -15,11 +31,8 @@
 
 .listHeader {
   padding: var(--spacing-3);
-  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-text-primary);
-  display: flex;
-  justify-content: space-between;
   border-bottom: var(--border-width-thin) solid var(--color-border-default);
   margin: 0;
 }

@@ -1,15 +1,5 @@
-.container {
-  display: flex;
-  gap: var(--spacing-2);
-  height: 100%;
-}
-@media (max-width: 767px) {
-  .container {
-    flex-direction: column;
-    height: auto;
-    height: 100%;
-  }
 
+@media (max-width: 767px) {
   .listWrapper {
     width: 100% !important;
     max-height: 240px;
@@ -33,14 +23,23 @@
   flex-direction: column;  
 }
 
-.listHeader {
-  padding: var(--spacing-3);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-primary);
-  border-bottom: var(--border-width-thin) solid var(--color-border-default);
-  margin-bottom: var(--spacing-2);
-  flex-shrink: 0;
-}
+ .wrapper {
+   display: flex;
+   flex-direction: column;
+   gap: var(--spacing-3);
+   height: 100%;
+   min-height: 0;
+  overflow: hidden;
+ }
+
+ .pageHeader {
+   flex-shrink: 0;
+ }
+
+ .pageCountent {
+   flex: 1;
+   min-height: 0;
+ }
 .listScroll{
   flex: 1;
   min-height: 0;

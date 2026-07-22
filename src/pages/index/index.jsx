@@ -15,7 +15,7 @@ function IndexPage() {
 
   return (
     <main className="landing">
-<div className="landing-scroll">
+    <div className="landing-scroll">
        <header className="landing-header">
         <Title level={2} weight="regular">
           Patchat만의 특허관련 DB와 AI채팅을 통해 다양한 특허 탐색을 제공합니다.
@@ -40,7 +40,7 @@ function IndexPage() {
            ))}
          </ul>
        </section>
-     </div>
+    </div>
 
      <SearchBox onSubmit={goToChat} />
     </main>

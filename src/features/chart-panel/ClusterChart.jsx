@@ -10,12 +10,13 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import { Card, Badge, Tab, PillTabs, Title } from "../../components/common";
+import { Card, Badge, Tab, PillTabs, Title, Input, Stack } from "../../components/common";
 import { clusterData, clusterBubbles } from "./clusterData.js";
 import styles from "./ClusterChart.module.css";
 
 function ClusterChart() {
   const [activeId, setActiveId] = useState("all");
+  const [isDescriptionVisible, setIsDescriptionVisible] = useState(true);
   const activeCluster = clusterData.find((c) => c.id === activeId);
 
   const displayBubbles =
@@ -33,7 +34,7 @@ function ClusterChart() {
   }
 
   return (
-    <div className={styles.container}>
+    <Stack direction="column" gap="md" align="stretch" fill>
       <PillTabs
         options={clusterData}
         selectedId={activeId}
@@ -41,26 +42,36 @@ function ClusterChart() {
       />
 
       {activeCluster.title && (
-        <Card
+        <Card         
           title={activeCluster.title}
           description={activeCluster.description}
+          headerAction={
+           <Input
+             type="switch"
+             checked={isDescriptionVisible}
+             onChange={() => setIsDescriptionVisible((prev) => !prev)}
+             label={isDescriptionVisible ? "숨기기" : "보이기"}
+           />
+         }
         >
-          <div className={styles.keywordRow}>
-            <span className={styles.keywordCount}>
-              {activeCluster.keywordCount}개
-            </span>
-            <div className={styles.keywordList}>
-              {activeCluster.keywords.map((kw, i) => (
-                <Badge key={i} variant="outline">
-                  {kw}
-                </Badge>
-              ))}
-            </div>
-          </div>
+          {isDescriptionVisible && (
+           <div className={styles.keywordRow}>
+             <span className={styles.keywordCount}>
+               {activeCluster.keywordCount}개
+             </span>
+             <div className={styles.keywordList}>
+               {activeCluster.keywords.map((kw, i) => (
+                 <Badge key={i} variant="outline">
+                   {kw}
+                 </Badge>
+               ))}
+             </div>
+           </div>
+         )}
         </Card>
       )}
 
-      <Card>
+      <Card className="fillCard">
         <div className={styles.chartHeader}>
         <Title level={4} className={styles.chartTitle}>클러스터 차트</Title>
         <p className={styles.chartCount}>
@@ -83,7 +94,7 @@ function ClusterChart() {
         </ScatterChart>
       </ResponsiveContainer>
       </Card>
-    </div>
+    </Stack>
   );
 }
 

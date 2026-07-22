@@ -21,7 +21,7 @@ function Input({
       <div className={styles.field}>
         <select
           className={`${variant === "plain" ? styles.plain : styles.input} ${sizeClass} ${error ? styles.inputError : ""}`}
-          value={value}
+          value={value}ㅋ
           onChange={onChange}
         >
           <option value="" disabled>
@@ -91,7 +91,7 @@ function Input({
 
   if (type === "switch") {
     return (
-      <label className={styles.checkLabel}>
+      <label className={styles.switchLabel}>
         <input
           type="checkbox"
           checked={checked}

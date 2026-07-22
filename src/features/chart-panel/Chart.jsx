@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import { Menu, PillTabs, Title, Card } from "../../components/common";
+import { Menu, PillTabs, Title, Card, Stack } from "../../components/common";
 import {
   fieldOptions,
   topNOptions,
@@ -47,7 +47,7 @@ function Chart() {
   }));
 
   return (
-    <div className={styles.container}>
+    <Stack direction="column" gap="md" align="stretch" fill>
       <PillTabs
         options={fieldOptions}
         selectedId={selectedFieldId}
@@ -86,7 +86,7 @@ function Chart() {
         </ResponsiveContainer>
       </Card>
 
-    </div>
+    </Stack>
   );
 }
 

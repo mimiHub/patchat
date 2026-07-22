@@ -81,7 +81,14 @@ textarea.input {
   color: var(--color-text-primary);
   cursor: pointer;
 }
-
+ .switchLabel {
+   display: inline-flex;
+   align-items: center;
+   gap: var(--spacing-2);
+   font-size: var(--font-size-sm);
+   color: var(--color-text-tertiary);
+   cursor: pointer;
+ }
 .hiddenInput {
   position: absolute;
   opacity: 0;

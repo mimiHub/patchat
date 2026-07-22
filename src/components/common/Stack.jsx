@@ -10,6 +10,7 @@ function Stack({
   mt,
   mb,
   className = "",
+  fill = false,
 }) {
   const combinedClassName = [
     styles.stack,
@@ -18,6 +19,7 @@ function Stack({
     styles[`align_${align}`],
     styles[`justify_${justify}`],
     wrap ? styles.wrap : "",
+    fill ? styles.fill : "",
     mt ? styles[`mt_${mt}`] : "",
     mb ? styles[`mb_${mb}`] : "",
     className,

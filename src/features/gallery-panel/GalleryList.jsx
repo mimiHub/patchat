@@ -1,6 +1,6 @@
 ﻿import { useState } from "react";
 import { patentList } from "../patent-panel/patentData.js";
-import { Button, Title, Card} from "../../components/common";
+import { Button, Title, Card, Stack} from "../../components/common";
 import btnStyles from "../../components/common/Button.module.css";
 import styles from "./Gallery.module.css";
 
@@ -25,7 +25,7 @@ function GalleryList({ selectedPatentId }) {
   const current = drawings[index];
 
   return (
-    <div className={styles.container}>
+    <Stack direction="column" gap="md" align="stretch" fill>
       <Card contentClassName="card-content-stack"> 
         <Title level={4} className={styles.patentTitle}>{patent.title}</Title>
       <p className={styles.patentNumber}>{patent.patentNumber}</p>
@@ -47,7 +47,7 @@ function GalleryList({ selectedPatentId }) {
 
       <img className={styles.image} src={current.url} alt={current.alt} />
       </Card>
-    </div>
+    </Stack>
   );
 }
 

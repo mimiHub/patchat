@@ -42,7 +42,7 @@ function ClassificationTree() {
   );
 
   return (
-    <div className={styles.container}>
+    <Stack direction="column" gap="md" align="stretch" fill>
       <Stack justify="between" align="center">
         <Title level={4} className={styles.title}>특허분류조회</Title>
         {selectedNode && (
@@ -89,7 +89,7 @@ function ClassificationTree() {
         onBackToTree={() => setIsDetailOpen(false)}
       />
       </Card>
-    </div>
+    </Stack>
   );
 }
 

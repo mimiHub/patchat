@@ -69,16 +69,9 @@
     gap: var(--spacing-5);
     justify-content: start;
   }
-  .landing-header h2{
-    font-size: var(--font-size-lg);
+  .landing-header{
+    display: none;
   }
-  .landing-header .btn-primary{
-    font-size: var(--font-size-xs);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--radius-sm);
-    width: 100%;
-  }
-
 }
 .landing-header .title {
   font-weight: var(--font-weight-medium);
@@ -382,7 +375,7 @@
 }
 @media (max-width: 767px) {
   .side-panel {
-    width: calc(100vw - 68px);
+    width: 100vw;
     border-radius: 0;
   }
 }

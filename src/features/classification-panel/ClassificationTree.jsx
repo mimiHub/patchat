@@ -3,7 +3,7 @@ import TreeNode from "./TreeNode.jsx";
 import ClassificationDetail from "./ClassificationDetail.jsx";
 import { classificationTree } from "./classificationData.js";
 import styles from "./ClassificationTree.module.css";
-import { Input, Tab, Title, Stack } from "../../components/common";
+import { Input, Tab, Title, Stack, Card } from "../../components/common";
 
 const SYSTEM_TABS = [
   { label: "IPC(영문)" },
@@ -56,7 +56,8 @@ function ClassificationTree() {
         )}
       </Stack>
 
-      <Tab
+      <Card contentClassName="card-content-stack"> 
+        <Tab
         tabs={SYSTEM_TABS}
         activeIndex={activeSystem}
         onChange={setActiveSystem}
@@ -87,6 +88,7 @@ function ClassificationTree() {
         selectedCode={selectedNode?.code}
         onBackToTree={() => setIsDetailOpen(false)}
       />
+      </Card>
     </div>
   );
 }

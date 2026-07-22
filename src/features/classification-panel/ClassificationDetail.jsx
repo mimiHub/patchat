@@ -1,4 +1,4 @@
-import { Popup, Button } from "../../components/common";
+import { Popup, Button, Card } from "../../components/common";
 import { findPathToNode, classificationTree } from "./classificationData.js";
 import styles from "./ClassificationDetail.module.css";
 

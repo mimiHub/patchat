@@ -75,11 +75,10 @@
   .landing-header .btn-primary{
     font-size: var(--font-size-xs);
     padding: var(--spacing-xs) var(--spacing-sm);
-  }
-  .btn-primary {
+    border-radius: var(--spacing-0);
     width: 100%;
-    justify-content: center;
   }
+
 }
 .landing-header .title {
   font-weight: var(--font-weight-medium);
@@ -443,4 +442,23 @@
 .alignSpaceBetween {
   display: flex;
   justify-content: space-between;
+}
+
+/* Card 내부 콘텐츠를 세로로 나열하며 간격 부여
+   (Card의 contentClassName prop에 문자열로 바로 사용) */
+
+.card-content-stack-sm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+.card-content-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+.card-content-stack-lg {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
 }

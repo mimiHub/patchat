@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import { Menu, PillTabs, Title } from "../../components/common";
+import { Menu, PillTabs, Title, Card } from "../../components/common";
 import {
   fieldOptions,
   topNOptions,
@@ -54,7 +54,7 @@ function Chart() {
         onChange={setSelectedFieldId}
       />
 
-      <div className={styles.chartCard}>
+      <Card>
         <div className={styles.chartHeader}>
           <Title level={4} className={styles.chartTitle}>
             {selectedField.label}
@@ -84,7 +84,8 @@ function Chart() {
             </Bar>
           </BarChart>
         </ResponsiveContainer>
-      </div>
+      </Card>
+
     </div>
   );
 }

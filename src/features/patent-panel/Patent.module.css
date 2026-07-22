@@ -1,32 +1,36 @@
 .container {
   display: flex;
-  gap: var(--spacing-4);
+  gap: var(--spacing-2);
   height: 100%;
 }
 @media (max-width: 767px) {
   .container {
     flex-direction: column;
     height: auto;
+    height: 100%;
   }
 
   .listWrapper {
     width: 100% !important;
     max-height: 240px;
-    border-right: none;
-    border-bottom: var(--border-width-thin) solid var(--color-border-default);
+    border-right: none !important;
+  }    
+  .listScroll{
+    padding: 0 5px 0 0;
   }
-
+  
   .detail {
-    overflow-y: visible; /* 바깥 SidePanel 스크롤에 맡김 */
+   overflow-y: visible; /* 바깥 SidePanel 스크롤에 맡김 */
+   flex: 1;
+   min-height: 0;
+   overflow-y: scroll;
   }
 }
 .listWrapper {
   width: 250px;
   flex-shrink: 0;
   display: flex;
-  flex-direction: column;
-  border-right: var(--border-width-thin) solid var(--color-border-default);
-  overflow: hidden;
+  flex-direction: column;  
 }
 
 .listHeader {
@@ -34,9 +38,16 @@
   font-weight: var(--font-weight-medium);
   color: var(--color-text-primary);
   border-bottom: var(--border-width-thin) solid var(--color-border-default);
-  margin: 0;
+  margin-bottom: var(--spacing-2);
+  flex-shrink: 0;
 }
-
+.listScroll{
+  flex: 1;
+  min-height: 0;
+}
+.detailScroll {
+  padding-right: 5px;
+}
 .listCount {
   color: var(--color-text-tertiary);
   font-weight: var(--font-weight-regular);
@@ -46,10 +57,14 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  margin-right: 5px;
   overflow-y: auto;
   flex: 1;
+  background-color: var(--color-gray-0);
 }
-
+.listWrapper .list li:last-child{
+  border-bottom: 0;
+}
 .item,
 .itemActive {
   padding: var(--spacing-3);
@@ -81,8 +96,7 @@
 
 .detail {
   flex: 1;
-  overflow-y: auto;
-  padding: var(--spacing-1);
+  min-height:0;
   display: flex;
   flex-direction: column;
 }

@@ -60,7 +60,8 @@ function ClusterChart() {
         </Card>
       )}
 
-      <div className={styles.chartHeader}>
+      <Card>
+        <div className={styles.chartHeader}>
         <Title level={4} className={styles.chartTitle}>클러스터 차트</Title>
         <p className={styles.chartCount}>
           전체 클러스터: <strong>{clusterData.length - 1}건</strong>
@@ -81,6 +82,7 @@ function ClusterChart() {
           </Scatter>
         </ScatterChart>
       </ResponsiveContainer>
+      </Card>
     </div>
   );
 }

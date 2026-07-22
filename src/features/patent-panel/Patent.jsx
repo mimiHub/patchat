@@ -24,28 +24,39 @@ function Patent({ selectedPatentId, onSelectPatentId, onViewMore }) {
   return (
     <div className={styles.container}>
       <div className={styles.listWrapper}>
-        <Stack justify="between" align="baseline"  className={styles.listHeader}>
+        <Stack justify="between" align="baseline" className={styles.listHeader}>
           <Title level={4}>특허리스트</Title>
           <span className={styles.listCount}>총 {patentList.length}건</span>
         </Stack>
-        <ul className={styles.list}>
-          {patentList.map((patent) => (
-            <li
-              key={patent.id}
-              className={
-                patent.id === selectedId ? styles.itemActive : styles.item
-              }
-              onClick={() => onSelectPatentId(patent.id)}
-            >
-              <p className={styles.itemTitle}>{patent.title}</p>
-              <p className={styles.itemNumber}>{patent.patentNumber}</p>
-            </li>
-          ))}
-        </ul>
+        <div className={styles.listScroll}>
+          <Card size="sm" className="fillCard" scrollHeight="100%">
+            <ul className={styles.list}>
+              {patentList.map((patent) => (
+                <li
+                  key={patent.id}
+                  className={
+                    patent.id === selectedId ? styles.itemActive : styles.item
+                  }
+                  onClick={() => onSelectPatentId(patent.id)}
+                >
+                  <p className={styles.itemTitle}>{patent.title}</p>
+                  <p className={styles.itemNumber}>{patent.patentNumber}</p>
+                </li>
+              ))}
+            </ul>
+          </Card>
+        </div>
       </div>
 
       <div className={styles.detail}>
-        <Card className="fillCard" title={selectedPatent.title} description={selectedPatent.patentNumber}>
+        <Card
+         size="sm"
+          className="fillCard"
+          scrollHeight="100%"
+          contentClassName={styles.detailScroll}
+          title={selectedPatent.title}
+          description={selectedPatent.patentNumber}
+        >
           <div className={styles.metaRow}>
             <Badge variant="outline">{selectedPatent.techCategory}</Badge>
             <Badge variant="primary">{selectedPatent.status}</Badge>

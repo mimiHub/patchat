@@ -382,7 +382,7 @@
 }
 @media (max-width: 767px) {
   .side-panel {
-    width: 100vw;
+    width: calc(100vw - 68px);
     border-radius: 0;
   }
 }

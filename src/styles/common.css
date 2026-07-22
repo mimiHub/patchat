@@ -75,7 +75,7 @@
   .landing-header .btn-primary{
     font-size: var(--font-size-xs);
     padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--spacing-0);
+    border-radius: var(--radius-sm);
     width: 100%;
   }
 

@@ -1,0 +1,63 @@
+.wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-1) var(--spacing-3);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+.trigger:hover {
+  background-color: var(--color-bg-subtle);
+}
+
+.trigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--color-bg-base);
+}
+
+.arrow {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.panel {
+  position: absolute;
+  top: calc(100% + var(--spacing-1));
+  min-width: 260px;
+  background-color: var(--color-bg-base);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-4);
+  z-index: var(--z-index-dropdown);
+}
+
+.alignLeft {
+  left: 0;
+}
+
+.alignRight {
+  right: 0;
+}
+
+/* 모바일에서는 트리거가 화면 왼쪽 가장자리에 붙기 쉬워서,
+   align 값과 무관하게 항상 왼쪽부터 오른쪽으로 펼치고 화면 밖으로 안 나가게 함 */
+@media (max-width: 767px) {
+  .panel {
+    left: 0 !important;
+    right: auto !important;
+    max-width: calc(100vw - var(--spacing-8, 64px));
+  }
+}

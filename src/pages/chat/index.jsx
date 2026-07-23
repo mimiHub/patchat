@@ -7,6 +7,7 @@ import Chart from "../../features/chart-panel/Chart";
 import ClusterChart from "../../features/chart-panel/ClusterChart";
 import Patent from "../../features/patent-panel/Patent";
 import GalleryList from "../../features/gallery-panel/GalleryList";
+import TechTask from "../../features/tech-task/TechTask";
 import { patentList } from "../../features/patent-panel/patentData.js";
 
 const panelComponents = {
@@ -20,15 +21,16 @@ const panelComponents = {
 function ChatPage() {
   const [panelType, setPanelType] = useState(null);
   const [selectedPatentId, setSelectedPatentId] = useState(patentList[0].id);
-  const PanelContent = panelComponents[panelType];
+
+  const PanelContent = panelType ? panelComponents[panelType] : null;
 
   return (
-  <div className="chat-page-row">
-    <main className="chat-main">
+    <div className="chat-page-row">
+      <main className="chat-main">
         <Chat onPanelOpen={(type) => setPanelType(type)} />
       </main>
 
-      {panelType && (
+      {panelType && panelType !== "techTask" && PanelContent && (
         <SidePanel onClose={() => setPanelType(null)}>
           <PanelContent
             selectedPatentId={selectedPatentId}
@@ -36,6 +38,25 @@ function ChatPage() {
             onViewMore={() => setPanelType("GalleryList")}
           />
         </SidePanel>
+      )}
+
+      {panelType === "techTask" && (
+        <div className="full-panel-overlay">
+          <button
+            type="button"
+            className="full-panel-close"
+            onClick={() => setPanelType(null)}
+          >
+            ✕
+          </button>
+          <div className="full-panel-body">
+            <TechTask
+              selectedPatentId={selectedPatentId}
+              onSelectPatentId={setSelectedPatentId}
+              onViewMore={() => setPanelType("GalleryList")}
+            />
+          </div>
+        </div>
       )}
     </div>
   );

@@ -1,11 +1,16 @@
 import { Popup, Button, Card } from "../../components/common";
-import { findPathToNode, classificationTree } from "./classificationData.js";
+import { findPathToNode } from "./classificationData.js";
 import styles from "./ClassificationDetail.module.css";
 
-function ClassificationDetail({ isOpen, onClose, selectedCode, onBackToTree }) {
-  const path = selectedCode
-    ? findPathToNode(classificationTree, selectedCode)
-    : [];
+function ClassificationDetail({
+  isOpen,
+  onClose,
+  selectedCode,
+  tree,
+  onBackToTree,
+}) {
+  const path =
+    selectedCode && tree ? findPathToNode(tree, selectedCode) : [];
 
   return (
     <Popup isOpen={isOpen} onClose={onClose} title={`${selectedCode} 분류 명세`}>
@@ -17,7 +22,7 @@ function ClassificationDetail({ isOpen, onClose, selectedCode, onBackToTree }) {
 
       <table className={styles.table}>
         <tbody>
-          {path.map((node) => (
+          {path?.map((node) => (
             <tr key={node.code}>
               <td className={styles.codeCell}>{node.code}</td>
               <td className={styles.labelCell}>{node.enLabel}</td>

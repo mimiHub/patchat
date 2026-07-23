@@ -9,6 +9,7 @@ const PANEL_BUTTONS = [
   { type: "patent", label: "특허상세보기" },
   { type: "classification", label: "특허분류조회" },
   { type: "GalleryList", label: "대표도면보기" },
+  { type: "techTask", label: "기술과제" },
 ];
 function getSampleResponse(question) {
   return {

@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import TreeNode from "./TreeNode.jsx";
 import ClassificationDetail from "./ClassificationDetail.jsx";
-import { classificationTree } from "./classificationData.js";
+import { classificationSystems } from "./classificationData.js";
 import styles from "./ClassificationTree.module.css";
 import { Input, Tab, Title, Stack, Card } from "../../components/common";
 
@@ -33,18 +33,31 @@ function filterTree(nodes, query) {
 function ClassificationTree() {
   const [activeSystem, setActiveSystem] = useState(0);
   const [query, setQuery] = useState("");
-  const [selectedNode, setSelectedNode] = useState(classificationTree[0]);
+  const [selectedNode, setSelectedNode] = useState(
+    classificationSystems[0][0],
+  );
   const [isDetailOpen, setIsDetailOpen] = useState(false);
 
+  const activeTree = classificationSystems[activeSystem];
+
   const visibleTree = useMemo(
-    () => filterTree(classificationTree, query),
-    [query],
+    () => filterTree(activeTree, query),
+    [activeTree, query],
   );
 
+  function handleSystemChange(index) {
+    setActiveSystem(index);
+    setQuery("");
+    // 탭을 바꾸면 이전 트리의 선택 노드가 새 트리엔 없을 수 있으니 첫 노드로 리셋
+    setSelectedNode(classificationSystems[index][0]);
+  }
+
   return (
-    <Stack direction="column" gap="md" align="stretch" fill>
+    <Stack  direction="column" gap="md" align="stretch" fill>
       <Stack justify="between" align="center">
-        <Title level={4} className={styles.title}>특허분류조회</Title>
+        <Title level={4} className={styles.title}>
+          특허분류조회
+        </Title>
         {selectedNode && (
           <button
             type="button"
@@ -56,39 +69,40 @@ function ClassificationTree() {
         )}
       </Stack>
 
-      <Card contentClassName="card-content-stack"> 
+      <Card contentClassName="card-content-stack">
         <Tab
-        tabs={SYSTEM_TABS}
-        activeIndex={activeSystem}
-        onChange={setActiveSystem}
-      />
+          tabs={SYSTEM_TABS}
+          activeIndex={activeSystem}
+          onChange={handleSystemChange}
+        />
 
-      <Input
-        type="text"
-        placeholder="예: B03B1/00, weed"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
+        <Input
+          type="text"
+          placeholder="예: B03B1/00, weed"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
 
-      <ul className={styles.rootList}>
-        {visibleTree.map((node) => (
-          <TreeNode
-            key={node.code}
-            node={node}
-            depth={0}
-            selectedCode={selectedNode?.code}
-            onSelect={setSelectedNode}
-          />
-        ))}
-      </ul>
+        <ul className={styles.rootList}>
+          {visibleTree.map((node) => (
+            <TreeNode
+              key={node.code}
+              node={node}
+              depth={0}
+              selectedCode={selectedNode?.code}
+              onSelect={setSelectedNode}
+            />
+          ))}
+        </ul>
+      </Card>
 
       <ClassificationDetail
         isOpen={isDetailOpen}
         onClose={() => setIsDetailOpen(false)}
         selectedCode={selectedNode?.code}
+        tree={activeTree}
         onBackToTree={() => setIsDetailOpen(false)}
       />
-      </Card>
     </Stack>
   );
 }

@@ -1,0 +1,474 @@
+.toolbarRow {
+  flex-shrink: 0;
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+}
+
+/* ---------- 좌측 차트 영역 ---------- */
+/* 기본: 화면(전체 body row)의 50%. Nav처럼 폭(width)만 트랜지션으로 줄었다 늘어남 */
+.chartPanel {
+  width: 50%;
+  flex-shrink: 0;
+  position: relative;
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-base);
+  overflow: hidden;
+  transition: width 0.2s ease;
+}
+
+.chartCollapsed {
+  width: 40px;
+}
+
+.chartToggle {
+  position: absolute;
+  top: var(--spacing-2);
+  right: var(--spacing-2);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  z-index: 1;
+  transition: background-color 0.15s ease;
+}
+
+.chartToggle:hover {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-primary);
+}
+
+.chartToggle svg {
+  width: 20px;
+  height: 20px;
+  color: inherit;
+}
+
+.chartBody {
+  height: 100%;
+  width: 100%;
+  padding: var(--spacing-8, var(--spacing-6)) var(--spacing-3) var(--spacing-3);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+/* ---------- 차트 설정 드롭다운 내용 ---------- */
+.settingsPanel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  width: 260px;
+}
+
+.settingLabel {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-2);
+}
+
+.settingLabel:first-child {
+  margin-top: 0;
+}
+
+.rangeInput {
+  width: 100%;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--color-gray-200);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  accent-color: var(--color-primary-500);
+}
+
+.rangeInput::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-primary-500);
+  cursor: pointer;
+}
+
+.rangeInput::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-primary-500);
+  cursor: pointer;
+}
+
+/* ---------- 히트맵 그리드 ---------- */
+.heatmap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  height: 100%;
+}
+
+.heatmapHeaderRow {
+  display: grid;
+  grid-template-columns: 120px repeat(6, 1fr);
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.heatmapRow {
+  display: grid;
+  grid-template-columns: 120px repeat(6, 1fr);
+  gap: 2px;
+  flex: 1;
+  min-height: 0;
+}
+
+.heatmapRowLabel {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-1);
+}
+
+.heatmapColLabel {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  text-align: center;
+  padding: var(--spacing-1);
+}
+
+.heatmapCell {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+/* ---------- 우측 메인 패널 ---------- */
+.mainPanel {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.challengeSection {
+  min-height: 0;
+}
+
+/* ---------- 기술과제 목록 (challenge view) ---------- */
+.challengeList {
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  overflow-y: auto;
+}
+
+/* PC(1024px 이상): 전체 리스트 표시 */
+.challengeListFull {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+/* 태블릿/모바일(1023px 이하)에서만 보이는 카드 1개 + 페이지네이션 */
+.challengeListSingle {
+  display: none;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+@media (max-width: 1023px) {
+  .challengeListFull {
+    display: none;
+  }
+
+  .challengeListSingle {
+    display: flex;
+  }
+}
+
+.challengeRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-base);
+  text-align: left;
+}
+
+.challengeRowActive {
+  background: var(--color-primary-500);
+  border-color: var(--color-primary-500);
+}
+
+.challengeRowActive:hover {
+  background: var(--color-primary-600);
+}
+
+.challengeRowActive .challengeTag {
+  color: var(--color-text-inverse);
+  opacity: 0.85;
+}
+
+.challengeRowActive .challengeLabel,
+.challengeRowActive .challengeCount {
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-bold);
+}
+
+.challengeRowActive .hamburgerBtn {
+  color: var(--color-text-inverse);
+}
+
+.challengeRowActive .hamburgerBtn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--color-text-inverse);
+}
+
+.challengeLabelGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  min-width: 0;
+}
+
+.challengeTag {
+  font-size: var(--font-size-xs);
+  color: var(--color-primary-600);
+  font-weight: var(--font-weight-medium);
+}
+
+.challengeLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.challengeCount {
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-tertiary);
+}
+
+.challengeActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  flex-shrink: 0;
+}
+
+.hamburgerBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.hamburgerBtn:hover {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-primary);
+}
+
+.chevron {
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-lg);
+}
+
+/* ---------- 기술과제 상세 (challenge view 우측) ---------- */
+.challengeDetail {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--spacing-3);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.detailCount {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.detailList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.detailItem {
+  padding-bottom: var(--spacing-3);
+  border-bottom: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.detailItem:last-child {
+  border-bottom: none;
+}
+
+.detailPatentCode {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-2) 0;
+}
+
+.detailRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-2);
+}
+
+.detailText {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed, 1.6);
+  margin: 0;
+}
+
+.emptyState {
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+}
+
+/* ---------- 상세 항목 페이지네이션 ---------- */
+.itemPagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  padding-top: var(--spacing-2);
+  border-top: var(--border-width-thin) solid var(--color-border-default);
+  flex-shrink: 0;
+}
+
+.pageArrow {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-base);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lg);
+  cursor: pointer;
+}
+
+.pageArrow:hover:not(:disabled) {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-primary);
+}
+
+.pageArrow:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pageIndicator {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  min-width: 48px;
+  text-align: center;
+}
+
+/* ---------- 특허상세보기 view (Patent 재사용 래퍼) ---------- */
+.patentView {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  height: 100%;
+  min-height: 0;
+}
+
+.backButton {
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.patentViewBody {
+  flex: 1;
+  min-height: 0;
+}
+
+/* ===========================
+   모바일 반응형 (767px 이하)
+   - 차트/목록: 위아래로 쌓임
+   - 챌린지 목록/상세: 위아래로 쌓임 (Patent와 동일 패턴)
+=========================== */
+@media (max-width: 767px) {
+  .toolbarRow {
+    flex-wrap: wrap;
+    row-gap: var(--spacing-2);
+  }
+
+  .body {
+    flex-direction: column !important;
+    overflow: hidden;
+  }
+
+  .chartPanel {
+    width: 100% !important;
+    height: 240px;
+    flex-shrink: 0;
+  }
+
+  .chartCollapsed {
+    height: 40px;
+  }
+
+  .mainPanel {
+    width: 100%;
+  }
+
+  .challengeSection {
+    flex-direction: column !important;
+  }
+
+  .challengeList {
+    width: 100%;
+    max-height: 240px;
+  }
+
+  .challengeDetail {
+    width: 100%;
+  }
+
+  /* 드롭다운 패널이 화면 밖으로 넘치지 않도록 */
+  .settingsPanel {
+    width: min(260px, calc(100vw - var(--spacing-8, 64px)));
+  }
+
+}

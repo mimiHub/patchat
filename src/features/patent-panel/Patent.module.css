@@ -1,69 +1,69 @@
-
-@media (max-width: 767px) {
-  .listWrapper {
-    width: 100% !important;
-    max-height: 240px;
-    border-right: none !important;
-  }    
-  .listScroll{
-    padding: 0 5px 0 0;
-  }
-  
-  .detail {
-   overflow-y: visible; /* 바깥 SidePanel 스크롤에 맡김 */
-   flex: 1;
-   min-height: 0;
-   overflow-y: scroll;
-  }
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
 }
+
+.pageHeader {
+  flex-shrink: 0;
+}
+
+.pageCountent {
+  flex: 1;
+  min-height: 0;
+}
+
 .listWrapper {
   width: 250px;
   flex-shrink: 0;
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
 }
 
- .wrapper {
-   display: flex;
-   flex-direction: column;
-   gap: var(--spacing-3);
-   height: 100%;
-   min-height: 0;
-  overflow: hidden;
- }
-
- .pageHeader {
-   flex-shrink: 0;
- }
-
- .pageCountent {
-   flex: 1;
-   min-height: 0;
- }
-.listScroll{
+.listScroll {
   flex: 1;
   min-height: 0;
 }
+
 .detailScroll {
   padding-right: 5px;
 }
+
 .listCount {
   color: var(--color-text-tertiary);
   font-weight: var(--font-weight-regular);
 }
 
-.list {
+/* PC(1024px 이상) - 전체 리스트 (기본 표시) */
+.listFull {
   list-style: none;
   padding: 0;
   margin: 0;
   margin-right: 5px;
   overflow-y: auto;
-  flex: 1;
   background-color: var(--color-gray-0);
+  display: block;
 }
-.listWrapper .list li:last-child{
+
+/* 태블릿/모바일(1023px 이하)에서만 보이는 카드 1개 + 페이지네이션 */
+.listSingle {
+  display: none;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.list {
+  flex: 1;
+  min-height: 0;
+}
+
+.listWrapper .list li:last-child {
   border-bottom: 0;
 }
+
 .item,
 .itemActive {
   padding: var(--spacing-3);
@@ -93,9 +93,50 @@
   margin: 0;
 }
 
+/* ---------- 특허 페이지네이션 (태블릿/모바일 전용) ---------- */
+.itemPagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  padding-top: var(--spacing-2);
+  flex-shrink: 0;
+}
+
+.pageArrow {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-base);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lg);
+  cursor: pointer;
+}
+
+.pageArrow:hover:not(:disabled) {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-primary);
+}
+
+.pageArrow:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pageIndicator {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  min-width: 48px;
+  text-align: center;
+}
+
 .detail {
   flex: 1;
-  min-height:0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
 }
@@ -140,4 +181,37 @@
   max-width: 500px;
   border: var(--border-width-thin) solid var(--color-border-default);
   border-radius: var(--radius-md);
+}
+
+/* ===========================
+   태블릿/모바일 (1023px 이하)
+=========================== */
+@media (max-width: 1023px) {
+  .pageCountent {
+    flex-direction: column;
+  }
+
+  .listWrapper {
+    width: 100% !important;
+    max-height: 240px;
+    border-right: none !important;
+  }
+
+  .listFull {
+    display: none;
+  }
+
+  .listSingle {
+    display: flex;
+  }
+
+  .detail {
+    overflow-y: scroll;
+  }
+}
+
+@media (max-width: 767px) {
+  .detailScroll {
+    padding-right: 5px;
+  }
 }

@@ -479,9 +479,7 @@
   height: 32px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  border: var(--border-width-thin) solid var(--color-border-default);
-  border-radius: var(--radius-md);
+  justify-content: center;  
   background: var(--color-bg-base);
   cursor: pointer;
   z-index: 1;

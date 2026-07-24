@@ -19,6 +19,32 @@
   padding: var(--spacing-4) 0;
 }
 
+/* 태블릿/모바일(1023px 이하) - 탭이 폭을 나눠 갖고, 넘치는 글자는
+   말줄임(...) 처리. title 속성으로 네이티브 툴팁이 대신 보여줌 */
+@media (max-width: 1023px) {
+  .tab,
+  .tabActive {
+    flex: 1 1 0;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .variant-underline {
+    padding: var(--spacing-2) var(--spacing-2);
+  }
+
+  .variant-pill {
+    padding: var(--spacing-1) var(--spacing-3);
+  }
+
+  .variant-solid {
+    padding: var(--spacing-2) var(--spacing-3);
+  }
+}
+
 /* ---------- underline 스타일 ---------- */
 .list-underline {
   border-bottom: var(--border-width-thin) solid var(--color-border-default);

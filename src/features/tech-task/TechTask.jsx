@@ -8,7 +8,7 @@ import { challenges } from "./techTaskData.js";
 import styles from "./TechTask.module.css";
 
 const CHART_TABS = [{ label: "SANKEY DIAGRAM" }, { label: "HEATMAP DIAGRAM" }];
-const LIST_PAGE_SIZE = 6;
+const LIST_PAGE_SIZE = 7;
 
 function TechTask({ selectedPatentId, onSelectPatentId, onViewMore }) {
   const [activeChartTab, setActiveChartTab] = useState(0);
@@ -71,7 +71,7 @@ function TechTask({ selectedPatentId, onSelectPatentId, onViewMore }) {
   const currentChallenge = filteredChallenges[safeChallengeIndex] ?? null;
   const currentItem = currentChallenge?.items[0] ?? null;
 
-  // ---- PC 전체 리스트용 페이지네이션 (6개씩) ----
+  // ---- PC 전체 리스트용 페이지네이션 (7개씩) ----
   const totalListPages = Math.max(
     1,
     Math.ceil(filteredChallenges.length / LIST_PAGE_SIZE),

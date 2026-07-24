@@ -37,7 +37,15 @@
   font-weight: var(--font-weight-regular);
 }
 
-/* PC(1024px 이상) - 전체 리스트 (기본 표시) */
+/* PC(1024px 이상) - 전체 리스트 (기본 표시)
+   rows 그룹은 위, 페이지네이션은 맨 아래로 (컬럼 방향 space-between) */
+.listFullWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
 .listFull {
   list-style: none;
   padding: 0;
@@ -45,7 +53,6 @@
   margin-right: 5px;
   overflow-y: auto;
   background-color: var(--color-gray-0);
-  display: block;
 }
 
 /* 태블릿/모바일(1023px 이하)에서만 보이는 카드 1개 + 페이지네이션 */
@@ -164,8 +171,7 @@
 
 .drawingHeader {
   display: flex;
-  /* justify-content: space-between; */
-  gap: var(--spacing-3);
+  justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-2);
 }
@@ -198,7 +204,7 @@
     border-right: none !important;
   }
 
-  .listFull {
+  .listFullWrapper {
     display: none;
   }
 

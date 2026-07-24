@@ -93,23 +93,27 @@ function ChallengeList({
 
   return (
     <>
-      {/* PC(1024px 이상) - 전체 리스트, 클릭해서 선택 */}
+      {/* PC(1024px 이상) - 전체 리스트, 클릭해서 선택
+          rows와 페이지네이션을 각각 그룹으로 나눠서, 부모의
+          justify-content: space-between이 이 둘 사이만 벌리도록 함 */}
       <div className={styles.challengeListFull}>
-        {visibleChallenges.map((challenge, i) => {
-          const index = listPageStart + i;
-          return (
-            <ChallengeRow
-              key={challenge.id}
-              challenge={challenge}
-              isActive={index === safeChallengeIndex}
-              onSelect={() => onSelectChallenge(index)}
-              onOpenPatentView={() => {
-                onSelectChallenge(index);
-                onOpenPatentView();
-              }}
-            />
-          );
-        })}
+        <div className={styles.challengeRows}>
+          {visibleChallenges.map((challenge, i) => {
+            const index = listPageStart + i;
+            return (
+              <ChallengeRow
+                key={challenge.id}
+                challenge={challenge}
+                isActive={index === safeChallengeIndex}
+                onSelect={() => onSelectChallenge(index)}
+                onOpenPatentView={() => {
+                  onSelectChallenge(index);
+                  onOpenPatentView();
+                }}
+              />
+            );
+          })}
+        </div>
 
         {totalListPages > 1 && (
           <PageNav

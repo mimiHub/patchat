@@ -41,6 +41,7 @@ function Tab({ tabs, variant = "underline", activeIndex: controlledIndex, onChan
             id={`tab-${index}`}
             className={getTabClassName(index)}
             onClick={() => handleClick(index)}
+            title={tab.label}
           >
             {tab.label}
           </button>

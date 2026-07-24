@@ -1,8 +1,13 @@
+import { useState } from "react";
 import { patentList } from "./patentData.js";
 import { Card, Tab, Badge, Button, Title, Stack } from "../../components/common";
 import styles from "./Patent.module.css";
 
+const LIST_PAGE_SIZE = 6;
+
 function Patent({ selectedPatentId, onSelectPatentId, onViewMore }) {
+  const [listPageIndex, setListPageIndex] = useState(0);
+
   const selectedId = selectedPatentId ?? patentList[0].id;
   const selectedPatent =
     patentList.find((p) => p.id === selectedId) ?? patentList[0];
@@ -10,6 +15,7 @@ function Patent({ selectedPatentId, onSelectPatentId, onViewMore }) {
   const currentIndex = patentList.findIndex((p) => p.id === selectedPatent.id);
   const safeIndex = currentIndex === -1 ? 0 : currentIndex;
 
+  // ---- 태블릿/모바일 카드 1개 - 특허 단위 이전/다음 ----
   function handlePrev() {
     if (safeIndex > 0) {
       onSelectPatentId(patentList[safeIndex - 1].id);
@@ -20,6 +26,26 @@ function Patent({ selectedPatentId, onSelectPatentId, onViewMore }) {
     if (safeIndex < patentList.length - 1) {
       onSelectPatentId(patentList[safeIndex + 1].id);
     }
+  }
+
+  // ---- PC 전체 리스트 - 6개씩 페이지 단위 ----
+  const totalListPages = Math.max(
+    1,
+    Math.ceil(patentList.length / LIST_PAGE_SIZE),
+  );
+  const safeListPageIndex = Math.min(listPageIndex, totalListPages - 1);
+  const listPageStart = safeListPageIndex * LIST_PAGE_SIZE;
+  const visiblePatents = patentList.slice(
+    listPageStart,
+    listPageStart + LIST_PAGE_SIZE,
+  );
+
+  function handleListPagePrev() {
+    setListPageIndex((p) => Math.max(0, p - 1));
+  }
+
+  function handleListPageNext() {
+    setListPageIndex((p) => Math.min(totalListPages - 1, p + 1));
   }
 
   const tabs = [
@@ -42,7 +68,7 @@ function Patent({ selectedPatentId, onSelectPatentId, onViewMore }) {
   return (
     <div className={styles.wrapper}>
       <Stack justify="between" align="baseline" className={styles.pageHeader}>
-        <Title level={4}>Patent List</Title>
+        <Title level={4}>특허리스트</Title>
         <span className={styles.listCount}>총 {patentList.length}건</span>
       </Stack>
 
@@ -55,23 +81,54 @@ function Patent({ selectedPatentId, onSelectPatentId, onViewMore }) {
         <div className={styles.listWrapper}>
           <div className={styles.listScroll}>
             <Card size="sm" className="fillCard" scrollHeight="100%">
-              {/* PC(1024px 이상) - 전체 리스트 */}
-              <ul className={`${styles.list} ${styles.listFull}`}>
-                {patentList.map((patent) => (
-                  <li
-                    key={patent.id}
-                    className={
-                      patent.id === selectedId
-                        ? styles.itemActive
-                        : styles.item
-                    }
-                    onClick={() => onSelectPatentId(patent.id)}
-                  >
-                    <p className={styles.itemTitle}>{patent.title}</p>
-                    <p className={styles.itemNumber}>{patent.patentNumber}</p>
-                  </li>
-                ))}
-              </ul>
+              {/* PC(1024px 이상) - 6개씩 페이지 단위 리스트, rows 그룹은 위,
+                  페이지네이션은 맨 아래로 (space-between) */}
+              <div className={styles.listFullWrapper}>
+                <ul className={styles.listFull}>
+                  {visiblePatents.map((patent) => (
+                    <li
+                      key={patent.id}
+                      className={
+                        patent.id === selectedId
+                          ? styles.itemActive
+                          : styles.item
+                      }
+                      onClick={() => onSelectPatentId(patent.id)}
+                    >
+                      <p className={styles.itemTitle}>{patent.title}</p>
+                      <p className={styles.itemNumber}>
+                        {patent.patentNumber}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+
+                {totalListPages > 1 && (
+                  <div className={styles.itemPagination}>
+                    <button
+                      type="button"
+                      className={styles.pageArrow}
+                      onClick={handleListPagePrev}
+                      disabled={safeListPageIndex === 0}
+                      aria-label="이전 페이지"
+                    >
+                      ‹
+                    </button>
+                    <span className={styles.pageIndicator}>
+                      {safeListPageIndex + 1} / {totalListPages}
+                    </span>
+                    <button
+                      type="button"
+                      className={styles.pageArrow}
+                      onClick={handleListPageNext}
+                      disabled={safeListPageIndex === totalListPages - 1}
+                      aria-label="다음 페이지"
+                    >
+                      ›
+                    </button>
+                  </div>
+                )}
+              </div>
 
               {/* 태블릿/모바일(1023px 이하) - 카드 1개 + 페이지네이션 */}
               <div className={styles.listSingle}>

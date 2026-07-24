@@ -1,6 +1,7 @@
+import Title from "./Title.jsx";
 import styles from "./Popup.module.css";
 
-function Popup({ isOpen, onClose, title, children }) {
+function Popup({ isOpen, onClose, title, size = "sm", children }) {
   if (!isOpen) {
     return null;
   }
@@ -12,11 +13,19 @@ function Popup({ isOpen, onClose, title, children }) {
     }
   }
 
+  const popupClassName = [styles.popup, styles[`size_${size}`]]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <div className={styles.overlay} onClick={handleOverlayClick}>
-      <div className={styles.popup}>
+      <div className={popupClassName}>
         <div className={styles.header}>
-          {title && <h3 className={styles.title}>{title}</h3>}
+          {title && (
+            <Title level={3} className={styles.title}>
+              {title}
+            </Title>
+          )}
           <button className={styles.closeButton} onClick={onClose}>
             ✕
           </button>

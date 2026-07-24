@@ -11,6 +11,7 @@ export { default as SearchBox } from "./SearchBox.jsx";
 export { default as Stack } from "./Stack.jsx";
 export { default as Tab } from "./Tab.jsx";
 export { default as Title } from "./Title.jsx";
+export { default as Text } from "./Text.jsx";
 export { default as Tooltip } from "./Tooltip.jsx";
 export { default as PillTabs } from "./PillTabs.jsx";
 export { default as Dropdown } from "./Dropdown";

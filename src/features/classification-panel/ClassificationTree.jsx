@@ -54,10 +54,7 @@ function ClassificationTree() {
 
   return (
     <Stack  direction="column" gap="md" align="stretch" fill>
-      <Stack justify="between" align="center">
-        <Title level={4} className={styles.title}>
-          특허분류조회
-        </Title>
+      <Stack justify="between" align="center">        
         {selectedNode && (
           <button
             type="button"

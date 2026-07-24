@@ -1,24 +1,10 @@
-.body {
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-regular);
-  color: var(--color-text-primary);
-  line-height: var(--line-height-normal);
-  margin: 0;
-}
-
-.caption {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-regular);
-  color: var(--color-text-tertiary);
-  line-height: var(--line-height-normal);
-  margin: 0;
-}
 .titleRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: var(--spacing-3);
 }
+
 .level1 {
   font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-bold);
@@ -38,20 +24,14 @@
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
 }
+
 .level4 {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
 }
-.weightLight {
-  font-weight: var(--font-weight-light);
-}
-.weightRegular {
-  font-weight: var(--font-weight-regular);
-}
-.weightMedium {
-  font-weight: var(--font-weight-medium);
-}
-.weightBold {
-  font-weight: var(--font-weight-bold);
-}
+
+.weightLight { font-weight: var(--font-weight-light); }
+.weightRegular { font-weight: var(--font-weight-regular); }
+.weightMedium { font-weight: var(--font-weight-medium); }
+.weightBold { font-weight: var(--font-weight-bold); }

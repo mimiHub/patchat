@@ -42,7 +42,7 @@ function Patent({ selectedPatentId, onSelectPatentId, onViewMore }) {
   return (
     <div className={styles.wrapper}>
       <Stack justify="between" align="baseline" className={styles.pageHeader}>
-        <Title level={4}>특허리스트</Title>
+        <Title level={4}>Patent List</Title>
         <span className={styles.listCount}>총 {patentList.length}건</span>
       </Stack>
 

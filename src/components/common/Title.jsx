@@ -8,25 +8,8 @@ const weightClassMap = {
 };
 
 function Title({ children, level = 1, action, weight, className = "" }) {
-  const weightClass = weight ? weightClassMap[weight] : "";
-
-  if (level === "body") {
-    return (
-      <p className={`${styles.body} ${weightClass} ${className}`}>
-        {children}
-      </p>
-    );
-  }
-
-  if (level === "caption") {
-    return (
-      <p className={`${styles.caption} ${weightClass} ${className}`}>
-        {children}
-      </p>
-    );
-  }
-
   const Tag = `h${level}`;
+  const weightClass = weight ? weightClassMap[weight] : "";
   const tagClassName = `${styles[`level${level}`]} ${weightClass} ${className}`;
 
   if (action) {

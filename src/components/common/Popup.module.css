@@ -8,17 +8,56 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: var(--spacing-6);
+  box-sizing: border-box;
   z-index: var(--z-index-modal);
+}
+
+/* 태블릿/모바일(1023px 이하) - 여백은 좁히되, 화면을 완전히 채우지 않음 */
+@media (max-width: 1023px) {
+  .overlay {
+    padding: var(--spacing-3);
+  }
 }
 
 .popup {
   background-color: var(--color-bg-base);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xl);
+}
+
+/* ---------- sm (기본값) - 기존 확인/목록형 팝업 ---------- */
+.size_sm {
   width: 100%;
   max-width: 420px;
   max-height: 80vh;
   overflow-y: auto;
+}
+
+/* ---------- md - 이미지 뷰어처럼 sm보다는 넓지만 lg까진 필요 없는 모달 ---------- */
+.size_md {
+  width: 100%;
+  max-width: 640px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+/* ---------- lg - 기술과제처럼 콘텐츠가 많은 전체화면급 모달 ---------- */
+.size_lg {
+  width: 100%;
+  max-width: 1240px;
+  height: 90vh;
+  max-height: 900px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@media (max-width: 1023px) {
+  .size_lg {
+    height: 100%;
+    max-height: none;
+  }
 }
 
 .header {
@@ -27,6 +66,7 @@
   align-items: center;
   padding: var(--spacing-4) var(--spacing-5);
   border-bottom: var(--border-width-thin) solid var(--color-border-default);
+  flex-shrink: 0;
 }
 
 .title {
@@ -53,4 +93,15 @@
   padding: var(--spacing-5);
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
+}
+
+/* lg 모달 안 콘텐츠는 남는 높이를 다 차지하며, 내부 스크롤은
+   TechTask 자체가 처리하므로 여기선 overflow:hidden */
+.size_lg .content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-6);
 }

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Title, SearchBox } from "../../components/common";
+import { Title, Text, Button, SearchBox } from "../../components/common";
 
 function IndexPage() {
   const navigate = useNavigate();
@@ -17,19 +17,19 @@ function IndexPage() {
     <main className="landing">
     <div className="landing-scroll">
        <header className="landing-header">
-        <Title level={2} weight="regular">
+        <Text variant="lg" weight="regular">
           Patchat만의 특허관련 DB와 AI채팅을 통해 다양한 특허 탐색을 제공합니다.
-         </Title>
-         <button className="btn-primary">비지니스 제안 문의</button>
+         </Text>
+         <Button rounded={true} className="btn-primary">비지니스 제안 문의</Button>
        </header>
 
        <section className="landing-hero">
          <div className="hero-text">
-           <Title level={2} weight="regular">
+           <Text variant="xl" weight=" medium">
              무한한 가능성을 여는 새로운 대화의 시작
-           </Title>
+           </Text>
            <Title level={1}>PATCHAT</Title>
-           <p className="sub">특허에 관한 모든것, Patchat와 함께 대화해 보세요.</p>
+           <Text className="sub">특허에 관한 모든것, Patchat와 함께 대화해 보세요.</Text>
          </div>
          <ul className="suggestions">
            {suggestions.map((text, i) => (

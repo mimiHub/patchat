@@ -164,7 +164,8 @@
 
 .drawingHeader {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  gap: var(--spacing-3);
   align-items: center;
   margin-bottom: var(--spacing-2);
 }

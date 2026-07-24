@@ -1,6 +1,6 @@
-﻿import { useState } from "react";
-import SidePanel from "../../layouts/SidePanel/SidePanel";
+import { useState } from "react";
 import Chat from "../../features/chat/Chat";
+import { Popup } from "../../components/common";
 
 import ClassificationTree from "../../features/classification-panel/ClassificationTree";
 import Chart from "../../features/chart-panel/Chart";
@@ -16,6 +16,25 @@ const panelComponents = {
   clusterChart: ClusterChart,
   patent: Patent,
   GalleryList: GalleryList,
+  techTask: TechTask,
+};
+
+const panelTitles = {
+  classification: "특허분류 조회",
+  chart: "막대차트 보기",
+  clusterChart: "클러스터차트 보기",
+  patent: "특허상세 보기",
+  GalleryList: "대표도면 보기",
+  techTask: "기술과제",
+};
+
+const panelSizes = {
+  classification: "lg",
+  chart: "lg",
+  clusterChart: "lg",
+  patent: "lg",
+  GalleryList: "md",
+  techTask: "lg",
 };
 
 function ChatPage() {
@@ -30,34 +49,20 @@ function ChatPage() {
         <Chat onPanelOpen={(type) => setPanelType(type)} />
       </main>
 
-      {panelType && panelType !== "techTask" && PanelContent && (
-        <SidePanel onClose={() => setPanelType(null)}>
+      <Popup
+        isOpen={!!panelType}
+        onClose={() => setPanelType(null)}
+        title={panelType ? panelTitles[panelType] : ""}
+        size={panelType ? panelSizes[panelType] : "lg"}
+      >
+        {PanelContent && (
           <PanelContent
             selectedPatentId={selectedPatentId}
             onSelectPatentId={setSelectedPatentId}
             onViewMore={() => setPanelType("GalleryList")}
           />
-        </SidePanel>
-      )}
-
-      {panelType === "techTask" && (
-        <div className="full-panel-overlay">
-          <button
-            type="button"
-            className="full-panel-close"
-            onClick={() => setPanelType(null)}
-          >
-            ✕
-          </button>
-          <div className="full-panel-body">
-            <TechTask
-              selectedPatentId={selectedPatentId}
-              onSelectPatentId={setSelectedPatentId}
-              onViewMore={() => setPanelType("GalleryList")}
-            />
-          </div>
-        </div>
-      )}
+        )}
+      </Popup>
     </div>
   );
 }

@@ -21,7 +21,7 @@
 }
 
 .chartCollapsed {
-  width: 50px;
+  width: 40px;
 }
 
 .chartToggle {
@@ -424,11 +424,12 @@
 }
 
 /* ===========================
-   모바일 반응형 (767px 이하)
+   태블릿/모바일 반응형 (1023px 이하)
+   PC와 확실히 구분되는 지점부터 모바일과 동일한 UI 적용
    - 차트/목록: 위아래로 쌓임
    - 챌린지 목록/상세: 위아래로 쌓임 (Patent와 동일 패턴)
 =========================== */
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .toolbarRow {
     flex-wrap: wrap;
     row-gap: var(--spacing-2);
@@ -446,7 +447,7 @@
   }
 
   .chartCollapsed {
-    height: 50px;
+    height: 40px;
   }
 
   .mainPanel {

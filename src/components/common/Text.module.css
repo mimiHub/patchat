@@ -1,0 +1,47 @@
+/* 랜딩 상단 큰 설명 텍스트 (예: Patchat만의 특허관련 DB와...) */
+.lg {
+  font-size: var(--font-size-xl, 20px);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-snug);
+  margin: 0;
+}
+.xl{
+  font-size: var(--font-size-2xl, 24px);
+  font-weight: var(--font-weight-medium, 700);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-snug);
+}
+/* 기본 본문 */
+.body {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-normal);
+  margin: 0;
+}
+
+/* 랜딩 하단 연한 서브 텍스트 (예: 특허에 관한 모든것, Patchat와...) */
+.sub {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-tertiary);
+  line-height: var(--line-height-tight);
+  margin: 0;
+}
+
+/* 작은 캡션 */
+.caption {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-tertiary);
+  line-height: var(--line-height-normal);
+  margin: 0;
+}
+
+.inline { display: inline; }
+
+.weightLight { font-weight: var(--font-weight-light); }
+.weightRegular { font-weight: var(--font-weight-regular); }
+.weightMedium { font-weight: var(--font-weight-medium); }
+.weightBold { font-weight: var(--font-weight-bold); }

@@ -1,0 +1,40 @@
+.box {
+  overflow: hidden;
+  background: var(--color-gray-100);
+  border: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.rounded {
+  border-radius: var(--radius-sm);
+}
+
+.header {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-500);
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  flex-shrink: 0;
+}
+
+.body {
+  min-height: 160px;
+  padding: var(--spacing-4);
+  font-size: var(--font-size-md);
+  line-height: 1.7;
+  background: var(--color-gray-0);
+}

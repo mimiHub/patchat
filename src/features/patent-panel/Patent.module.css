@@ -1,0 +1,248 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.pageHeader {
+  flex-shrink: 0;
+}
+
+.pageCountent {
+  flex: 1;
+  min-height: 0;
+}
+
+.listWrapper {
+  width: 250px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.listScroll {
+  flex: 1;
+  min-height: 0;
+}
+
+.detailScroll {
+  padding-right: 5px;
+}
+
+.listCount {
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-regular);
+}
+
+/* PC(1024px 이상) - 전체 리스트 (기본 표시)
+   rows 그룹은 위, 페이지네이션은 맨 아래로 (컬럼 방향 space-between) */
+.listFullWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.listFull {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-right: 5px;
+  overflow-y: auto;
+  background-color: var(--color-gray-0);
+}
+
+/* 태블릿/모바일(1023px 이하)에서만 보이는 카드 1개 + 페이지네이션 */
+.listSingle {
+  display: none;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.list {
+  flex: 1;
+  min-height: 0;
+}
+
+.listWrapper .list li:last-child {
+  border-bottom: 0;
+}
+
+.item,
+.itemActive {
+  cursor: pointer;
+  border-bottom: var(--border-width-thin) solid var(--color-border-default);
+}
+
+/* 실제 배경/라운드는 li 안의 itemBody가 담당 - 위아래/좌우로 살짝
+   inset되어 리스트 안에 떠 있는 카드처럼 보이게 함 */
+.itemBody {
+  padding: var(--spacing-3);
+  margin: var(--spacing-1) 0;
+  border-radius: var(--radius-md);
+  transition: background-color 0.15s ease;
+}
+
+.item:hover .itemBody {
+  background-color: var(--color-bg-subtle);
+}
+.itemActive .itemBody {
+  background-color: var(--color-primary-100);
+}
+
+/* 태블릿/모바일(1023px 이하) 카드 1개 뷰 - li 구조가 아니라 단독 div라
+   itemBody와 별개로 자체 padding/배경을 가짐 */
+.singleCard {
+  padding: var(--spacing-3);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-subtle);
+}
+
+.itemTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  margin: 0 0 4px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.itemNumber {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  margin: 0;
+}
+
+/* ---------- 특허 페이지네이션 (태블릿/모바일 전용) ---------- */
+.itemPagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  padding-top: var(--spacing-2);
+  flex-shrink: 0;
+}
+
+.pageArrow {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-base);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lg);
+  cursor: pointer;
+}
+
+.pageArrow:hover:not(:disabled) {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-primary);
+}
+
+.pageArrow:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pageIndicator {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  min-width: 48px;
+  text-align: center;
+}
+
+.detail {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.metaRow {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.metaText {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.tabText {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed, 1.6);
+}
+
+.drawingSection {
+  /* 위/아래 간격은 상위 Stack의 gap이 담당 */
+}
+
+.drawingHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-2);
+}
+
+.drawingTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.drawingImage {
+  width: 100%;
+  max-width: 500px;
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+}
+
+/* ===========================
+   태블릿/모바일 (1023px 이하) - 리스트/디테일 세로 배치
+   태블릿(768~1023px)은 전체 리스트(listFull) 유지, 모바일에서만 카드 1개로 전환
+=========================== */
+@media (max-width: 1023px) {
+  .pageCountent {
+    flex-direction: column;
+  }
+
+  .listWrapper {
+    width: 100% !important;
+    max-height: 240px;
+    border-right: none !important;
+  }
+
+  .detail {
+    overflow-y: scroll;
+  }
+}
+
+/* ===========================
+   모바일 전용 (480px 이하) - 카드 1개 + 이전/다음 페이지네이션
+=========================== */
+@media (max-width: 480px) {
+  .listFullWrapper {
+    display: none;
+  }
+
+  .listSingle {
+    display: flex;
+  }
+}
+
+@media (max-width: 767px) {
+  .detailScroll {
+    padding-right: 5px;
+  }
+}

@@ -1,0 +1,104 @@
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media (max-width: 767px) {
+  .headerRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-2);
+  }
+
+}
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.selectedBadge {
+  padding: var(--spacing-2) var(--spacing-4);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-base);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.selectedBadge:hover {
+  background-color: var(--color-bg-subtle);
+}
+
+.rootList,
+.childList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* 트리를 다 펼쳐도 카드/팝업 밖으로 넘치지 않게, 이 안에서만 스크롤 */
+.treeScroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.row,
+.rowActive {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-2);
+  margin: 2px var(--spacing-2);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* 배경 없이, 텍스트 색/굵기로만 상태 표시 */
+.row:hover {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.rowActive {
+  color: var(--color-primary-700);
+  font-weight: var(--font-weight-bold);
+}
+
+.toggleBtn {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-base);
+  font-size: var(--font-size-sm);
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.toggleSpacer {
+  width: 22px;
+  flex-shrink: 0;
+}
+
+.code {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary-600);
+  flex-shrink: 0;
+}
+
+.label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

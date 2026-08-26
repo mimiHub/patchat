@@ -21,7 +21,7 @@ function Input({
       <div className={styles.field}>
         <select
           className={`${variant === "plain" ? styles.plain : styles.input} ${sizeClass} ${error ? styles.inputError : ""}`}
-          value={value}ㅋ
+          value={value}
           onChange={onChange}
         >
           <option value="" disabled>

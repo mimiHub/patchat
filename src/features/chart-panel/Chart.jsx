@@ -10,11 +10,7 @@ import {
   Cell,
 } from "recharts";
 import { Menu, PillTabs, Title, Card, Stack } from "../../components/common";
-import {
-  fieldOptions,
-  topNOptions,
-  chartDataByField,
-} from "./chartData.js";
+import { fieldOptions, topNOptions, chartDataByField } from "./chartData.js";
 import styles from "./Chart.module.css";
 
 const BAR_COLORS = [
@@ -38,7 +34,9 @@ function Chart() {
   const selectedTopN = topNOptions.find((t) => t.id === selectedTopNId);
 
   const fullData = chartDataByField[selectedFieldId] || [];
-  const displayData = fullData.slice(0, selectedTopN.value);
+  // 값이 큰 순서대로(내림차순) 정렬 - 막대가 위에서부터 큰 순서로 나오게
+  const sortedData = [...fullData].sort((a, b) => b.value - a.value);
+  const displayData = sortedData.slice(0, selectedTopN.value);
 
   const topNMenuItems = topNOptions.map((option) => ({
     id: option.id,
@@ -71,21 +69,23 @@ function Chart() {
           <BarChart
             data={displayData}
             layout="vertical"
-            margin={{ top: 10, right: 30, left: 40, bottom: 10 }}
+            margin={{ top: 40, right: 60, left: 40, bottom: 20 }}
           >
             <CartesianGrid strokeDasharray="3 3" horizontal={false} />
             <XAxis type="number" />
             <YAxis type="category" dataKey="name" width={100} />
             <Tooltip />
-            <Bar dataKey="value" barSize={28} radius={[0, 4, 4, 0]}>
+            <Bar dataKey="value" barSize={40} radius={[0, 4, 4, 0]}>
               {displayData.map((entry, index) => (
-                <Cell key={index} fill={BAR_COLORS[index % BAR_COLORS.length]} />
+                <Cell
+                  key={index}
+                  fill={BAR_COLORS[index % BAR_COLORS.length]}
+                />
               ))}
             </Bar>
           </BarChart>
         </ResponsiveContainer>
       </Card>
-
     </Stack>
   );
 }

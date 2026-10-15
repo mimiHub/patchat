@@ -124,10 +124,12 @@ function Patent({ selectedPatentId, onSelectPatentId, onViewMore }) {
                       }
                       onClick={() => onSelectPatentId(patent.id)}
                     >
-                      <p className={styles.itemTitle}>{patent.title}</p>
-                      <p className={styles.itemNumber}>
-                        {patent.patentNumber}
-                      </p>
+                      <div className={styles.itemBody}>
+                        <p className={styles.itemTitle}>{patent.title}</p>
+                        <p className={styles.itemNumber}>
+                          {patent.patentNumber}
+                        </p>
+                      </div>
                     </li>
                   ))}
                 </ul>
@@ -161,7 +163,7 @@ function Patent({ selectedPatentId, onSelectPatentId, onViewMore }) {
 
               {/* 태블릿/모바일(1023px 이하) - 카드 1개 + 페이지네이션 */}
               <div className={styles.listSingle}>
-                <div className={styles.itemActive}>
+                <div className={styles.singleCard}>
                   <p className={styles.itemTitle}>{selectedPatent.title}</p>
                   <p className={styles.itemNumber}>
                     {selectedPatent.patentNumber}

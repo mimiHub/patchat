@@ -73,18 +73,32 @@
 
 .item,
 .itemActive {
-  padding: var(--spacing-3);
   cursor: pointer;
   border-bottom: var(--border-width-thin) solid var(--color-border-default);
 }
 
-.item:hover {
-  background-color: var(--color-bg-subtle);
+/* 실제 배경/라운드는 li 안의 itemBody가 담당 - 위아래로 살짝
+   inset되어 리스트 안에 떠 있는 카드처럼 보이게 함 */
+.itemBody {
+  padding: var(--spacing-3);
+  margin: var(--spacing-1) 0;
+  border-radius: var(--radius-md);
+  transition: background-color 0.15s ease;
 }
 
-.itemActive {
+.item:hover .itemBody {
+  background-color: var(--color-bg-subtle);
+}
+.itemActive .itemBody {
   background-color: var(--color-primary-100);
-  border-left: var(--border-width-thick) solid var(--color-primary-500);
+}
+
+/* 모바일 카드 1개 뷰 - li 구조가 아니라 단독 div라
+   itemBody와 별개로 자체 padding/배경을 가짐 */
+.singleCard {
+  padding: var(--spacing-3);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-subtle);
 }
 
 .itemTitle {
@@ -92,6 +106,9 @@
   font-weight: var(--font-weight-medium);
   color: var(--color-text-primary);
   margin: 0 0 4px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .itemNumber {
@@ -272,14 +289,6 @@
     border-right: none !important;
   }
 
-  .listFullWrapper {
-    display: none;
-  }
-
-  .listSingle {
-    display: flex;
-  }
-
   /* 도면 → 서지정보 → 숫자 박스 순서로 위아래 쌓기 */
   .infoGrid {
     grid-template-columns: minmax(0, 1fr);
@@ -293,6 +302,20 @@
 
   .detail > div {
     min-height: 0;
+  }
+}
+
+/* ===========================
+   모바일 전용 (480px 이하) - 카드 1개 + 이전/다음 페이지네이션
+   (태블릿 768~1023px은 전체 리스트 유지)
+=========================== */
+@media (max-width: 480px) {
+  .listFullWrapper {
+    display: none;
+  }
+
+  .listSingle {
+    display: flex;
   }
 }
 

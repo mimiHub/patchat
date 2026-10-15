@@ -3,7 +3,7 @@ import TreeNode from "./TreeNode.jsx";
 import ClassificationDetail from "./ClassificationDetail.jsx";
 import { classificationSystems } from "./classificationData.js";
 import styles from "./ClassificationTree.module.css";
-import { Input, Tab, Title, Stack, Card } from "../../components/common";
+import { Input, Tab, Stack, Card } from "../../components/common";
 
 const SYSTEM_TABS = [
   { label: "IPC(영문)" },
@@ -33,9 +33,7 @@ function filterTree(nodes, query) {
 function ClassificationTree() {
   const [activeSystem, setActiveSystem] = useState(0);
   const [query, setQuery] = useState("");
-  const [selectedNode, setSelectedNode] = useState(
-    classificationSystems[0][0],
-  );
+  const [selectedNode, setSelectedNode] = useState(classificationSystems[0][0]);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
 
   const activeTree = classificationSystems[activeSystem];
@@ -53,8 +51,8 @@ function ClassificationTree() {
   }
 
   return (
-    <Stack  direction="column" gap="md" align="stretch" fill>
-      <Stack justify="between" align="center">        
+    <Stack direction="column" gap="md" align="stretch" fill>
+      <Stack justify="between" align="center">
         {selectedNode && (
           <button
             type="button"
@@ -66,7 +64,11 @@ function ClassificationTree() {
         )}
       </Stack>
 
-      <Card contentClassName="card-content-stack">
+      <Card
+        contentClassName="card-content-stack"
+        className="fillCard"
+        scrollHeight="100%"
+      >
         <Tab
           tabs={SYSTEM_TABS}
           activeIndex={activeSystem}
@@ -80,17 +82,19 @@ function ClassificationTree() {
           onChange={(e) => setQuery(e.target.value)}
         />
 
-        <ul className={styles.rootList}>
-          {visibleTree.map((node) => (
-            <TreeNode
-              key={node.code}
-              node={node}
-              depth={0}
-              selectedCode={selectedNode?.code}
-              onSelect={setSelectedNode}
-            />
-          ))}
-        </ul>
+        <div className={styles.treeScroll}>
+          <ul className={styles.rootList}>
+            {visibleTree.map((node) => (
+              <TreeNode
+                key={node.code}
+                node={node}
+                depth={0}
+                selectedCode={selectedNode?.code}
+                onSelect={setSelectedNode}
+              />
+            ))}
+          </ul>
+        </div>
       </Card>
 
       <ClassificationDetail

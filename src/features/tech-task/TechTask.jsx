@@ -119,13 +119,14 @@ function TechTask({ selectedPatentId, onSelectPatentId, onViewMore }) {
   }
 
   return (
-    <Stack direction="column" gap="lg" align="stretch" fill>
+    <Stack direction="column" gap="sm" align="stretch" fill>
       <Stack justify="between" align="center" className={styles.toolbarRow}>
         <Tab
           variant="pill"
           tabs={CHART_TABS}
           activeIndex={activeChartTab}
           onChange={setActiveChartTab}
+          fullWidth={false}
         />
 
         <Stack gap="sm">

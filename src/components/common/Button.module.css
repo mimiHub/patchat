@@ -76,6 +76,16 @@
   opacity: 1;
 }
 
+.gray {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-gray-600);
+}
+
+.gray:hover {
+  opacity: 0.7;
+}
+
 /* 버튼 사이즈 */
 .size_sm {
   padding: var(--spacing-1) var(--spacing-3);

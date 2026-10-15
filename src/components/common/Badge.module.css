@@ -33,7 +33,7 @@
 }
 
 .outline {
-  background-color: transparent;
+  background-color: var(--color-bg);
   border: var(--border-width-thin) solid var(--color-border-default);
   color: var(--color-text-secondary);
 }

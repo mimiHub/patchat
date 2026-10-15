@@ -123,6 +123,9 @@ function ComponentsGuide() {
                 <Button onClick={() => {}} variant="danger">
                   삭제 버튼
                 </Button>
+                <Button onClick={() => {}} variant="gray">
+                  회색 버튼
+                </Button>
               </div>
               <div className="alignSpaceBetween">
                 <Button onClick={() => {}}>기본 버튼</Button>
@@ -160,6 +163,7 @@ function ComponentsGuide() {
               {`<Button>기본 버튼</Button>
 <Button variant="secondary">보조 버튼</Button>
 <Button variant="danger">삭제 버튼</Button>
+<Button variant="gray">회색 버튼</Button>
 <Button fullWidth>전체 너비 버튼</Button>
 
 <div className="align-left">

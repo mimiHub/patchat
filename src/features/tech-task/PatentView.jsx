@@ -11,7 +11,7 @@ function PatentView({
   return (
     <div className={styles.patentView}>
       <Button
-        variant="secondary"
+        variant="gray"
         size="sm"
         onClick={onBack}
         className={styles.backButton}

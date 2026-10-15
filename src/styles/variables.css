@@ -74,8 +74,8 @@
      Typography
      --------------------------------------------- */
   --font-base:
-    "Pretendard", -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif;
---font-secondary: "Montserrat", "Pretendard", sans-serif;
+    "Noto Sans KR", "Noto Sans", -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif;
+  --font-secondary: "Montserrat", "Noto Sans KR", "Noto Sans", sans-serif;
   --font-size-root: 16;
 
   --font-size-sm-px: 14;
@@ -158,7 +158,7 @@
      common.css가 참조하는 숫자형 spacing / 세만틱 컬러 이름을
      기존 스케일에 매핑. 새 이름을 쓰는 곳이 생기면 여기에 추가.
      --------------------------------------------- */
-  --spacing-0: 0px;    
+  --spacing-0: 0px;
   --spacing-1: 4px;
   --spacing-2: 8px;
   --spacing-3: 12px;
@@ -178,8 +178,8 @@
   --color-text-tertiary: var(--color-gray-500);
   --color-text-inverse: var(--color-gray-0);
 
-  --color-bg-muted: var(--color-gray-100);
-  --color-bg-subtle: var(--color-gray-50);
+  --color-bg-muted: var(--color-gray-200);
+  --color-bg-subtle: var(--color-gray-100);
 
   --border-width-thin: 1px;
   --color-border-default: var(--color-border);
@@ -218,7 +218,7 @@
   --line-height-none: 1;
   --line-height-tight: 1.25;
   --line-height-snug: 1.375;
-  --line-height-normal: 1.5;   /* 본문 기본값 */
+  --line-height-normal: 1.5; /* 본문 기본값 */
   --line-height-relaxed: 1.625; /* 여유 있는 본문 */
   --line-height-loose: 2;
 
@@ -227,16 +227,17 @@
      --------------------------------------------- */
   --color-bg-overlay: rgba(0, 0, 0, 0.5);
   --color-bg-base: var(--color-gray-0);
-  
+
   --z-index-modal: 1000;
   --z-index-panel: 900;
   --z-index-dropdown: 100;
   --z-index-tooltip: 1100;
   --z-index-nav: 950;
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);  
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06); 
-
+  --shadow-xl:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
 
   /* ---------------------------------------------
      Breakpoints (참고용 — @media 조건엔 리터럴 값 사용)

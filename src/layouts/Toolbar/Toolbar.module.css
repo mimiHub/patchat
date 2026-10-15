@@ -4,7 +4,8 @@
   justify-content: space-between;
   height: 56px;
   padding: 0 var(--spacing-4);
-  background-color: var(--color-bg-base);
+  /* 투명: 메인 페이지의 파란 그라데이션이 툴바 뒤까지 이어 보이도록 (다른 페이지는 원래 흰 바탕) */
+  background-color: transparent;
   flex-shrink: 0;
 }
 

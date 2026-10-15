@@ -1,10 +1,12 @@
 .wrapper {
   width: 100%;
+  min-width: 0;
 }
 
 .tabList {
   display: flex;
   gap: var(--spacing-2);
+  min-width: 0;
 }
 
 .tab,
@@ -13,36 +15,20 @@
   font-size: var(--font-size-md);
   border: none;
   background: none;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* size prop - 기본값(md)보다 작게 쓰고 싶을 때 */
+.size-sm {
+  font-size: var(--font-size-sm);
 }
 
 .tabContent {
   padding: var(--spacing-4) 0;
-}
-
-/* 태블릿/모바일(1023px 이하) - 탭이 폭을 나눠 갖고, 넘치는 글자는
-   말줄임(...) 처리. title 속성으로 네이티브 툴팁이 대신 보여줌 */
-@media (max-width: 1023px) {
-  .tab,
-  .tabActive {
-    flex: 1 1 0;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    text-align: center;
-  }
-
-  .variant-underline {
-    padding: var(--spacing-2) var(--spacing-2);
-  }
-
-  .variant-pill {
-    padding: var(--spacing-1) var(--spacing-3);
-  }
-
-  .variant-solid {
-    padding: var(--spacing-2) var(--spacing-3);
-  }
 }
 
 /* ---------- underline 스타일 ---------- */
@@ -71,21 +57,25 @@
 /* ---------- pill 스타일 ---------- */
 .list-pill {
   padding: var(--spacing-1);
-  background: var(--color-bg-subtle);
+  /* 선택 탭(primary-500)과 같은 계열의 연한 파랑 - 클러스터 키워드 박스와 동일 톤 */
+  background: var(--color-primary-100);
   border-radius: var(--radius-full);
-  display: inline-flex;
+  /* 내용만큼만 넓어지되(fit-content), 부모 폭은 절대 넘지 않도록(max-width) */
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .variant-pill {
   padding: var(--spacing-1) var(--spacing-6);
   background: transparent;
-  color: var(--color-text-secondary);
+  color: var(--color-primary-700);
   border-radius: var(--radius-full);
   font-weight: var(--font-weight-medium);
 }
 
 .variant-pill:hover {
-  color: var(--color-text-primary);
+  color: var(--color-primary-500);
 }
 
 .tabActive.variant-pill {
@@ -120,4 +110,40 @@
   color: var(--color-text-inverse);
   border-color: var(--color-primary-500);
   font-weight: var(--font-weight-bold);
+}
+
+/* ===========================
+   태블릿/모바일 (1023px 이하)
+   반드시 파일 "맨 아래"에 둬야 함 - 위의 기본 규칙(.variant-pill padding,
+   .list-pill width 등)과 선택자 우선순위가 같아서, 나중에 쓴 쪽이 이김
+   - 탭이 폭을 똑같이 나눠 갖고, 넘치는 글자는 말줄임(...) 처리
+   - title 속성으로 네이티브 툴팁이 대신 보여줌
+=========================== */
+@media (max-width: 1023px) {
+  .tab,
+  .tabActive {
+    flex: 1 1 0;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .variant-underline {
+    padding: var(--spacing-2) var(--spacing-2);
+  }
+
+  .variant-pill {
+    padding: var(--spacing-1) var(--spacing-3);
+  }
+
+  .variant-solid {
+    padding: var(--spacing-2) var(--spacing-3);
+  }
+
+  /* pill 탭 묶음은 가로 100% */
+  .list-pill {
+    width: 100%;
+  }
 }

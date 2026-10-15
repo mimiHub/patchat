@@ -15,3 +15,4 @@ export { default as Text } from "./Text.jsx";
 export { default as Tooltip } from "./Tooltip.jsx";
 export { default as PillTabs } from "./PillTabs.jsx";
 export { default as Dropdown } from "./Dropdown";
+export { default as StatGrid } from "./StatGrid.jsx";

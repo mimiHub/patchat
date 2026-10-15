@@ -53,6 +53,13 @@
   color: inherit;
 }
 
+/* 접힌 상태(PC: 폭 40px 세로 막대) - 버튼을 막대 가로 가운데에 */
+.chartCollapsed .chartToggle {
+  right: auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .chartBody {
   height: 100%;
   width: 100%;
@@ -456,6 +463,14 @@
 
   .chartCollapsed {
     height: 40px;
+  }
+
+  /* 접힌 상태(모바일: 높이 40px 가로 막대) - 버튼을 막대 세로 가운데에 */
+  .chartCollapsed .chartToggle {
+    left: auto;
+    right: var(--spacing-2);
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .mainPanel {

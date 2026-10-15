@@ -1,3 +1,4 @@
+export { default as IconLogo } from "./IconLogo";
 export { default as IconSidebar } from "./IconSidebar";
 export { default as IconNewChat } from "./IconNewChat";
 export { default as IconSearch } from "./IconSearch";

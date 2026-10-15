@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { patentList } from "./patentData.js";
-import { Card, Tab, Badge, Button, Title, Stack } from "../../components/common";
+import {
+  Card,
+  Tab,
+  Badge,
+  Button,
+  Title,
+  Stack,
+  StatGrid,
+} from "../../components/common";
 import styles from "./Patent.module.css";
 
 const LIST_PAGE_SIZE = 6;
@@ -63,6 +71,27 @@ function Patent({ selectedPatentId, onSelectPatentId, onViewMore }) {
         <p className={styles.tabText}>{selectedPatent.specification}</p>
       ),
     },
+  ];
+
+  const hasDrawing = selectedPatent.drawings?.length > 0;
+
+  // 서지정보 표 - 값이 없으면(예: 심사중이라 등록일 없음) "-"로 표시
+  const biblioRows = [
+    { label: "출원인", value: selectedPatent.applicant },
+    { label: "발명자", value: selectedPatent.inventor },
+    { label: "대리인", value: selectedPatent.agent },
+    { label: "출원일", value: selectedPatent.filingDate },
+    { label: "공개일", value: selectedPatent.publicationDate },
+    { label: "등록일", value: selectedPatent.registrationDate },
+    { label: "IPC", value: selectedPatent.ipc },
+  ];
+
+  const stats = selectedPatent.stats ?? {};
+  const statItems = [
+    { label: "청구항", value: stats.claimCount ?? "-" },
+    { label: "인용", value: stats.citationCount ?? "-" },
+    { label: "피인용", value: stats.citedByCount ?? "-" },
+    { label: "패밀리", value: stats.familyCount ?? "-" },
   ];
 
   return (
@@ -182,32 +211,54 @@ function Patent({ selectedPatentId, onSelectPatentId, onViewMore }) {
               <Badge variant="outline">{selectedPatent.techCategory}</Badge>
               <Badge variant="primary">{selectedPatent.status}</Badge>
             </div>
-            <p className={styles.metaText}>
-              <strong>출원인</strong> {selectedPatent.applicant}
-            </p>
-            <p className={styles.metaText}>
-              <strong>발명자</strong> {selectedPatent.inventor}
-            </p>
 
-            {selectedPatent.drawings?.length > 0 && (
-              <div className={styles.drawingSection}>
-                <div className={styles.drawingHeader}>
-                  <p className={styles.drawingTitle}>대표도면</p>
-                  {selectedPatent.drawings.length > 1 && (
-                    <Button variant="secondary" size="sm" onClick={onViewMore}>
-                      더보기
-                    </Button>
-                  )}
-                </div>
-                <img
-                  className={styles.drawingImage}
-                  src={selectedPatent.drawings[0].url}
-                  alt={selectedPatent.drawings[0].alt}
-                />
+            {/* "대표도면 + 더보기" 제목줄은 2단 바깥(위)에 둬서
+                아래 도면과 서지정보 표의 윗선이 같은 높이에서 시작하도록 */}
+            {hasDrawing && (
+              <div className={styles.drawingHeader}>
+                <p className={styles.drawingTitle}>대표도면</p>
+                {selectedPatent.drawings.length > 1 && (
+                  <Button variant="secondary" size="sm" onClick={onViewMore}>
+                    더보기
+                  </Button>
+                )}
               </div>
             )}
 
-            <Tab variant="pill" tabs={tabs} />
+            {/* 대표도면(왼쪽) + 서지정보(오른쪽) 2단. 도면이 없으면 1단 */}
+            <div
+              className={
+                hasDrawing
+                  ? styles.infoGrid
+                  : `${styles.infoGrid} ${styles.infoGridSingle}`
+              }
+            >
+              {hasDrawing && (
+                <div className={styles.drawingSection}>
+                  <img
+                    className={styles.drawingImage}
+                    src={selectedPatent.drawings[0].url}
+                    alt={selectedPatent.drawings[0].alt}
+                  />
+                </div>
+              )}
+
+              <div className={styles.infoSide}>
+                {/* 서지정보: "항목명 - 값" 짝이라 dl(정의 목록)로 마크업 */}
+                <dl className={styles.biblio}>
+                  {biblioRows.map((row) => (
+                    <div key={row.label} className={styles.biblioRow}>
+                      <dt>{row.label}</dt>
+                      <dd>{row.value || "-"}</dd>
+                    </div>
+                  ))}
+                </dl>
+
+                <StatGrid items={statItems} />
+              </div>
+            </div>
+
+            <Tab variant="pill" size="sm" tabs={tabs} />
           </Card>
         </div>
       </Stack>

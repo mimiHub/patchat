@@ -1,0 +1,44 @@
+/* 테두리 없이 바탕색으로만 구분 - 숫자만 파랑으로 강조.
+   바탕색은 --stat-bg 변수로 바꿀 수 있음 (기본: 연한 회색).
+   예) 회색 카드 안에 놓일 땐 부모에서 --stat-bg: 흰색 으로 지정 → 흰 박스로 보임 */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--stat-columns, 4), minmax(0, 1fr));
+  gap: var(--spacing-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  padding: var(--spacing-3) var(--spacing-1);
+  border-radius: var(--radius-md);
+  background-color: var(--stat-bg, var(--color-bg-muted));
+}
+
+.value {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-500);
+  line-height: 1.2;
+}
+
+.label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: repeat(var(--stat-columns-mobile, 2), minmax(0, 1fr));
+  }
+}

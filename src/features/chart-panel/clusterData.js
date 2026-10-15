@@ -15,6 +15,11 @@ export const clusterData = [
     title: "데이터 품질 및 객관성 문제",
     description:
       "데이터 수집 및 처리 과정에서 발생하는 품질 저하와 객관성 확보 문제를 다루는 기술군입니다.",
+    patentCount: 38, // 클러스터에 속한 특허 수
+    avgFilingYear: 2022, // 평균 출원연도
+    topApplicants: [{ name: "네이버", count: 9 }, { name: "삼성전자", count: 7 }, { name: "카카오", count: 5 }],
+    // 대표 특허 - patentData.js의 id. 누르면 특허상세 보기로 이동
+    patentIds: [5, 1],
     keywordCount: 8,
     keywords: [
       "데이터 정합성",
@@ -34,6 +39,11 @@ export const clusterData = [
     title: "특허 관계 유형 분석",
     description:
       "특허 간 인용, 패밀리, 분할·연속 등 관계 유형을 분류하고 분석하는 기술군입니다.",
+    patentCount: 27, // 클러스터에 속한 특허 수
+    avgFilingYear: 2021, // 평균 출원연도
+    topApplicants: [{ name: "삼성전자", count: 8 }, { name: "SK하이닉스", count: 6 }, { name: "LG전자", count: 4 }],
+    // 대표 특허 - patentData.js의 id. 누르면 특허상세 보기로 이동
+    patentIds: [6, 2],
     keywordCount: 6,
     keywords: [
       "인용관계",
@@ -51,6 +61,11 @@ export const clusterData = [
     title: "특허 데이터 기반 검색 및 분석 기술",
     description:
       "이 클러스터는 특허 데이터베이스를 효율적으로 구축하고, 대량의 특허 데이터를 신속하게 검색 및 분석하는 기술들을 포함한다. 정량적인 특허 가치 평가와 선행특허 검색 최적화를 통해 분석 시간과 데이터 처리 부하를 줄이는 방법에 중점을 둔다.",
+    patentCount: 52, // 클러스터에 속한 특허 수
+    avgFilingYear: 2022, // 평균 출원연도
+    topApplicants: [{ name: "카카오", count: 14 }, { name: "네이버", count: 11 }, { name: "삼성SDS", count: 7 }],
+    // 대표 특허 - patentData.js의 id. 누르면 특허상세 보기로 이동
+    patentIds: [10, 3],
     keywordCount: 10,
     keywords: [
       "검색시간",
@@ -72,6 +87,11 @@ export const clusterData = [
     title: "특허 처리 시간 및 인력 효율화",
     description:
       "특허 심사 및 처리 프로세스에서 소요되는 시간과 인력을 줄이기 위한 자동화 기술군입니다.",
+    patentCount: 31, // 클러스터에 속한 특허 수
+    avgFilingYear: 2023, // 평균 출원연도
+    topApplicants: [{ name: "현대자동차", count: 8 }, { name: "삼성SDI", count: 6 }, { name: "LG에너지솔루션", count: 5 }],
+    // 대표 특허 - patentData.js의 id. 누르면 특허상세 보기로 이동
+    patentIds: [8, 9, 4],
     keywordCount: 7,
     keywords: [
       "심사자동화",

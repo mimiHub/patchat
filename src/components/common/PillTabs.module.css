@@ -1,4 +1,20 @@
+/* [‹ 화살표] [칩 줄] [› 화살표] 가로 배치 */
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  min-width: 0;
+}
+
+/* 칩 줄을 감싸는 틀 - 양 끝 그라데이션(::before/::after)의 기준 */
+.rowWrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
 .tabRow {
+  position: relative; /* 칩의 offsetLeft 기준점 */
   display: flex;
   gap: var(--spacing-2);
   flex-wrap: wrap;
@@ -31,4 +47,92 @@
   height: 8px;
   border-radius: var(--radius-full);
   flex-shrink: 0;
+}
+
+/* ---------- 양 끝 그라데이션: "옆으로 더 있어요" 힌트 ----------
+   스크롤이 남아 있는 쪽에만 보임 (JS에서 fadeLeft / fadeRight 클래스를 붙임) */
+.rowWrap::before,
+.rowWrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  z-index: 1;
+  pointer-events: none; /* 그라데이션 아래 칩도 눌리도록 */
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.rowWrap::before {
+  left: 0;
+  background: linear-gradient(to right, var(--color-bg-base), transparent);
+}
+
+.rowWrap::after {
+  right: 0;
+  background: linear-gradient(to left, var(--color-bg-base), transparent);
+}
+
+.fadeLeft::before,
+.fadeRight::after {
+  opacity: 1;
+}
+
+/* ---------- 좌우 화살표 (칩이 넘칠 때만 나타남) ---------- */
+.arrow {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-base);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lg);
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.arrow:hover:not(:disabled) {
+  border-color: var(--color-primary-500);
+  color: var(--color-primary-500);
+}
+
+/* 더 갈 곳이 없는 쪽 화살표는 흐리게 (자리는 유지해서 칩 줄이 들썩이지 않게) */
+.arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ===========================
+   태블릿/모바일 (1023px 이하) - 줄바꿈 대신 한 줄 가로 스크롤
+=========================== */
+@media (max-width: 1023px) {
+  .tabRow {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    /* 손가락으로 밀다 멈추면 칩 시작 위치에 살짝 맞춰 멈춤 */
+    scroll-snap-type: x proximity;
+    /* 멈춘 칩이 양 끝 그라데이션에 가려지지 않게 끝에서 살짝 띄워서 맞춤 */
+    scroll-padding-inline: var(--spacing-6);
+    /* 스크롤바는 숨김 (가로 스크롤은 그라데이션으로 안내) */
+    scrollbar-width: none;
+  }
+
+  .tabRow::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab,
+  .tabActive {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
 }

@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import {
   Button,
   Card,
@@ -10,6 +10,7 @@ import {
   Tooltip,
   Popup,
 } from "../../components/common";
+import { useHorizontalScroll } from "../../hooks/useHorizontalScroll";
 import styles from "./ComponentsGuide.module.css";
 
 const guideList = [
@@ -37,21 +38,76 @@ function ComponentsGuide() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isNotification, setIsNotification] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  // 모바일 가로 탭: 양 끝 그라데이션 + 선택된 탭 자동 스크롤 (PillTabs와 같은 훅)
+  const {
+    ref: listRef,
+    edges,
+    handleScroll,
+    scrollByPage,
+  } = useHorizontalScroll(selectedId);
+
+  // 탭이 넘쳐서 가로 스크롤이 생겼을 때만 화살표 표시 (PC 세로 목록에선 안 보임)
+  const isOverflowing = edges.left || edges.right;
+
+  const listInnerClassName = [
+    styles.listInner,
+    edges.left ? styles.fadeLeft : "",
+    edges.right ? styles.fadeRight : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div className={styles.container}>
-      <ul className={styles.list}>
-        {guideList.map((item) => (
-          <li
-            key={item.id}
-            className={item.id === selectedId ? styles.itemActive : styles.item}
-            onClick={() => setSelectedId(item.id)}
+      <div className={styles.listWrap}>
+        {isOverflowing && (
+          <button
+            type="button"
+            className={styles.arrow}
+            onClick={() => scrollByPage(-1)}
+            disabled={!edges.left}
+            aria-label="이전 항목 보기"
           >
-            <p className={styles.itemTitle}>{item.name}</p>
-            <p className={styles.itemCategory}>{item.category}</p>
-          </li>
-        ))}
-      </ul>
+            ‹
+          </button>
+        )}
+
+        <div className={listInnerClassName}>
+          <ul
+            ref={listRef}
+            className={styles.list}
+            role="tablist"
+            onScroll={handleScroll}
+          >
+            {guideList.map((item) => (
+              <li
+                key={item.id}
+                role="tab"
+                aria-selected={item.id === selectedId}
+                className={
+                  item.id === selectedId ? styles.itemActive : styles.item
+                }
+                onClick={() => setSelectedId(item.id)}
+              >
+                <p className={styles.itemTitle}>{item.name}</p>
+                <p className={styles.itemCategory}>{item.category}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {isOverflowing && (
+          <button
+            type="button"
+            className={styles.arrow}
+            onClick={() => scrollByPage(1)}
+            disabled={!edges.right}
+            aria-label="다음 항목 보기"
+          >
+            ›
+          </button>
+        )}
+      </div>
 
       <div className={styles.detail}>
         {selectedId === "button" && (
@@ -341,7 +397,9 @@ action={<Badge variant="success">완료</Badge>}>
               />
             </div>
 
-            <p style={{ marginTop: "16px" }}>variant="solid" (FAQ에서 사용 중)</p>
+            <p style={{ marginTop: "16px" }}>
+              variant="solid" (FAQ에서 사용 중)
+            </p>
             <div className={styles.previewBox}>
               <Tab
                 variant="solid"

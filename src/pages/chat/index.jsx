@@ -60,6 +60,11 @@ function ChatPage() {
             selectedPatentId={selectedPatentId}
             onSelectPatentId={setSelectedPatentId}
             onViewMore={() => setPanelType("GalleryList")}
+            // 클러스터차트의 대표 특허를 누르면 → 그 특허를 선택하고 특허상세 보기로 전환
+            onOpenPatent={(patentId) => {
+              setSelectedPatentId(patentId);
+              setPanelType("patent");
+            }}
           />
         )}
       </Popup>

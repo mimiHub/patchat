@@ -4,29 +4,48 @@
   gap: var(--spacing-4);
   height: 100%;
 }
+
+/* ---------- 키워드 영역: 파란 숫자 박스 + 회색 키워드 박스 ----------
+   align-items: stretch → 키워드가 여러 줄로 늘어나도 두 박스 높이가 항상 같음 */
 .keywordRow {
   display: flex;
   gap: var(--spacing-4);
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 .keywordCount {
+  flex-shrink: 0;
+  min-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-4);
+  border-radius: var(--radius-md);
+  background-color: var(--color-primary-100);
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-primary-500);
-  flex-shrink: 0;
 }
 
 .keywordList {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
   gap: var(--spacing-2);
+  padding: var(--spacing-4);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-subtle);
 }
 
+/* ---------- 차트 카드 ---------- */
 .chartHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-2);
 }
 
 .chartTitle {
@@ -39,4 +58,305 @@
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   margin: 0;
+}
+
+/* 차트 카드(1.6) : 정보 카드(1) 2단 - 카드를 나눠서 영역을 구분 */
+.chartBody {
+  /* 팝업에서 위(탭·키워드 카드)를 빼고 남는 높이를 전부 차지 → 팝업 자체가 스크롤되지 않음 */
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  /* 줄 높이 = 남는 높이. minmax(0, …)로 내용이 길어도 줄이 늘어나지 않고 카드 안에서 스크롤 */
+  grid-template-rows: minmax(0, 1fr);
+  /* 위아래 카드 사이 간격(Stack gap md)과 같은 값 → 카드 간격이 사방으로 일정 */
+  gap: var(--spacing-md);
+  /* stretch: 두 카드 높이를 똑같이 맞춤 */
+  align-items: stretch;
+}
+
+.chartCard,
+.sideCard {
+  min-width: 0;
+}
+
+/* 오른쪽 정보 카드: 카드 "바탕"에 연한 회색을 깔고, 안의 요소들은 흰색으로 띄움
+   (.chartBody를 붙여 선택자 우선순위를 높임 → Card 기본 흰 배경을 확실히 덮어씀) */
+.chartBody .sideCard {
+  background-color: var(--color-bg-muted);
+  /* StatGrid 박스 배경을 흰색으로 바꾸는 CSS 변수 (StatGrid.module.css에서 사용) */
+  --stat-bg: var(--color-bg-base);
+}
+
+/* 카드 내용 영역: 헤더 아래 차트가 남는 높이를 채우도록 세로 flex */
+.chartCardContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.chartArea {
+  flex: 1;
+  min-width: 0;
+  /* 화면이 낮아도 차트가 너무 납작해지지 않게 최소 높이 */
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 차트(ResponsiveContainer)가 안내 문구를 뺀 나머지 높이를 차지 */
+.chartArea > :first-child {
+  flex: 1;
+  min-height: 0;
+}
+
+/* 버블을 마우스로 클릭하면 차트(svg)에 검은 포커스 테두리가 생김 → 마우스 클릭 땐 숨기고,
+   키보드(Tab)로 이동할 때만 보이도록 (:focus-visible) - 접근성 유지 */
+.chartArea :focus:not(:focus-visible) {
+  outline: none;
+}
+
+.chartHint {
+  margin: 0;
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* 전체 보기에서 버블이 눌리는 요소라는 걸 커서로 알려줌 */
+.clickable {
+  cursor: pointer;
+}
+
+.tooltip {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-base);
+  box-shadow: var(--shadow-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+.colorDot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+}
+
+.ellipsis {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- 오른쪽 정보 패널 ---------- */
+.sidePanel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  min-width: 0;
+}
+
+.sideTitle {
+  margin: 0 0 var(--spacing-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+/* 전체 보기 - 클러스터 목록 (이름 · 건수 / 아래 비중 막대) */
+/* 카드 안 요소들은 테두리선 없이 흰 박스 → 회색 카드 바탕 위에 떠 보임
+   ("선 안의 선" 없이 배경색 차이로만 구분) */
+.clusterList,
+.applicantList,
+.patentList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.clusterList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.clusterItem {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  row-gap: var(--spacing-1);
+  column-gap: var(--spacing-3);
+  align-items: center;
+  padding: var(--spacing-3);
+  border: none;
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-base);
+  text-align: left;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.clusterItem:hover {
+  background-color: var(--color-primary-100);
+}
+
+.clusterName {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  min-width: 0;
+}
+
+.clusterCount {
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-secondary);
+}
+
+/* 비중 막대 - 2칸을 가로질러 아래 줄에 */
+.shareTrack {
+  grid-column: 1 / -1;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-gray-100);
+  overflow: hidden;
+}
+
+.shareBar {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-full);
+}
+
+/* 클러스터 1개 보기 - 주요 출원인 */
+/* 주요 출원인: 목록 전체를 흰 박스 하나로, 줄 사이 선은 없음 */
+.applicantList {
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-base);
+}
+
+.applicantList li {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-1) 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+.applicantRank {
+  width: 20px;
+  flex-shrink: 0;
+  text-align: center;
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-medium);
+}
+
+.applicantCount {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary-500);
+}
+
+/* 클러스터 1개 보기 - 대표 특허 (누르면 특허상세로) */
+.patentList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.patentItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-2) var(--spacing-3);
+  border: none;
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-base);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.patentItem:hover {
+  background-color: var(--color-primary-100);
+}
+
+.patentText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.patentTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.patentMeta {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.arrow {
+  flex-shrink: 0;
+  font-size: var(--font-size-lg);
+  color: var(--color-primary-500);
+  transition: transform 0.15s ease;
+}
+
+/* hover 시 화살표가 살짝 오른쪽으로 → "이동한다"는 느낌 */
+.patentItem:hover .arrow {
+  transform: translateX(2px);
+}
+
+/* ===========================
+   태블릿/모바일 (1023px 이하) - 차트 위, 정보 패널 아래
+=========================== */
+@media (max-width: 1023px) {
+  /* 높이를 100%로 고정하면 내용이 팝업보다 길 때 넘친 부분에 팝업 아래 여백(padding)이
+     안 붙어서 마지막 카드가 팝업 끝에 딱 붙어 잘려 보임 → 내용 높이만큼 늘어나게 */
+  .root {
+    height: auto;
+  }
+
+  /* 위아래로 쌓이면 한 화면에 다 못 넣으므로 높이 맞춤을 풀고 팝업 전체 스크롤로 */
+  .chartBody {
+    flex: none;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+  }
+
+  .chartArea {
+    flex: none;
+    height: 320px;
+  }
+}
+
+@media (max-width: 767px) {
+  .keywordRow {
+    flex-direction: column;
+  }
+
+  .keywordCount {
+    min-width: 0;
+    padding: var(--spacing-2);
+    font-size: var(--font-size-xl);
+  }
 }

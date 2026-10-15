@@ -1,17 +1,53 @@
 .container {
   display: flex;
   gap: var(--spacing-4);
-  height: 100vh;
+  /* 팝업(또는 페이지)에서 남는 높이만 차지 → 목록·내용이 각자 안에서 스크롤 */
+  flex: 1;
+  min-height: 0;
+}
+
+/* 목록 전체 틀 - PC: 왼쪽 세로 목록 / 모바일: [‹] [탭 줄] [›] 가로 배치 */
+.listWrap {
+  width: 240px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* 탭 줄을 감싸는 틀 - 모바일에서 양 끝 그라데이션(::before/::after)을 올리는 기준 */
+.listInner {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .list {
-  width: 240px;
-  flex-shrink: 0;
+  flex: 1;
+  min-height: 0;
+  position: relative; /* 항목 offsetLeft 기준점 */
   list-style: none;
   padding: 0;
   margin: 0;
   border-right: var(--border-width-thin) solid var(--color-border-default);
   overflow-y: auto;
+}
+
+/* 양 끝 그라데이션: PC에선 안 보임 (모바일에서만 opacity 1) */
+.listInner::before,
+.listInner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
 .item,
@@ -45,6 +81,7 @@
 
 .detail {
   flex: 1;
+  min-width: 0; /* 코드 블록(pre)이 길어도 영역을 밀어내지 않고 안에서 가로 스크롤 */
   padding: var(--spacing-4);
   overflow-y: auto;
 }
@@ -71,5 +108,141 @@
 }
 .btnGroup {
   display: flex;
+  flex-wrap: wrap; /* 좁은 화면에서 버튼이 넘치지 않고 다음 줄로 */
   gap: var(--spacing-2);
+}
+
+/* ---------- 좌우 화살표 (모바일에서 탭이 넘칠 때만 나타남, PillTabs와 같은 모양) ---------- */
+.arrow {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-base);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lg);
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.arrow:hover:not(:disabled) {
+  border-color: var(--color-primary-500);
+  color: var(--color-primary-500);
+}
+
+/* 더 갈 곳이 없는 쪽은 흐리게 (자리는 유지해서 탭 줄이 들썩이지 않게) */
+.arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ===========================
+   태블릿/모바일 (1023px 이하)
+   왼쪽 세로 목록 → 위쪽 한 줄 가로 스크롤 탭, 내용은 아래 전체 폭
+=========================== */
+@media (max-width: 1023px) {
+  .container {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* 위 툴바(흰색)와 구분되도록 탭 영역 전체에 연한 회색 바탕 + 위아래 선 */
+  .listWrap {
+    width: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: 0 var(--spacing-2);
+    background-color: var(--color-bg-muted);
+    border-top: var(--border-width-thin) solid var(--color-border-default);
+    border-bottom: var(--border-width-thin) solid var(--color-border-default);
+  }
+
+  .list {
+    flex: none;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-right: none;
+    scrollbar-width: none;
+    /* 멈춘 탭이 양 끝 그라데이션에 가려지지 않게 끝에서 살짝 띄워서 맞춤 */
+    scroll-padding-inline: var(--spacing-6);
+  }
+
+  /* 가려진 탭이 있는 쪽에만 그라데이션 → "옆으로 더 있어요" 힌트 */
+  .listInner::before {
+    left: 0;
+    background: linear-gradient(to right, var(--color-bg-muted), transparent);
+  }
+
+  .listInner::after {
+    right: 0;
+    background: linear-gradient(to left, var(--color-bg-muted), transparent);
+  }
+
+  .fadeLeft::before,
+  .fadeRight::after {
+    opacity: 1;
+  }
+
+  .list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .item,
+  .itemActive {
+    flex-shrink: 0;
+    padding: var(--spacing-3) var(--spacing-4);
+    border-bottom: var(--border-width-medium) solid transparent;
+  }
+
+  /* 선택 표시: 왼쪽 세로 막대 → 아래쪽 밑줄 */
+  .itemActive {
+    border-left: none;
+    border-bottom-color: var(--color-primary-500);
+    background-color: transparent;
+  }
+
+  .item:hover {
+    background-color: transparent;
+  }
+
+  .itemActive .itemTitle {
+    color: var(--color-primary-500);
+  }
+
+  .itemTitle {
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  /* 분류(Basic 등)는 가로 탭에선 공간만 차지해서 숨김 */
+  .itemCategory {
+    display: none;
+  }
+
+  /* 미리보기 상자 안쪽 여백을 줄여 좁은 화면에서 버튼 공간 확보 */
+  .previewBox {
+    padding: var(--spacing-4);
+  }
+
+  /* 버튼 글자가 "기본 / 버튼"처럼 두 줄로 꺾이지 않게 */
+  .previewBox button {
+    white-space: nowrap;
+  }
+
+  /* 양끝 정렬 예시 줄: 공간이 모자라면 넘치지 말고 다음 줄로
+     (alignSpaceBetween은 common.css의 전역 클래스라 :global로 지정) */
+  .previewBox :global(.alignSpaceBetween) {
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+  }
 }

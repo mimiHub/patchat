@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./Tab.module.css";
 
-function Tab({ tabs, variant = "underline", activeIndex: controlledIndex, onChange, showDivider = true,}) {
+function Tab({ tabs, variant = "underline", size = "md", activeIndex: controlledIndex, onChange, showDivider = true,}) {
   const [internalIndex, setInternalIndex] = useState(0);
   const isControlled = controlledIndex !== undefined;
   const activeIndex = isControlled ? controlledIndex : internalIndex;
@@ -18,7 +18,10 @@ function Tab({ tabs, variant = "underline", activeIndex: controlledIndex, onChan
   const activeVariantClass = isActive
     ? styles[`activeVariant-${variant}`]
     : "";
-  return [base, variantClass, activeVariantClass].filter(Boolean).join(" ");
+  const sizeClass = styles[`size-${size}`];
+  return [base, variantClass, activeVariantClass, sizeClass]
+    .filter(Boolean)
+    .join(" ");
 }
 
   return (

@@ -143,6 +143,7 @@
 
 .detail {
   flex: 1;
+  min-width: 0;
   min-height: 0;
   display: flex;
   flex-direction: column;
@@ -166,14 +167,15 @@
 }
 
 .drawingSection {
-  margin: var(--spacing-2) 0;
+  min-width: 0;
+  display: flex;
 }
 
 .drawingHeader {
   display: flex;
   align-items: center;
   gap: var(--spacing-3);
-  margin-bottom: var(--spacing-2);
+  margin: var(--spacing-3) 0 var(--spacing-2);
 }
 
 .drawingTitle {
@@ -183,12 +185,78 @@
   margin: 0;
 }
 
+/* 오른쪽 표가 도면보다 길어져도 도면 칸이 같은 높이까지 늘어나서 아랫선이 맞음.
+   object-fit: contain → 늘어나도 도면이 잘리거나 찌그러지지 않고 가운데 정렬 */
 .drawingImage {
+  display: block;
   width: 100%;
-  max-width: 500px;
+  height: 100%;
+  object-fit: contain;
+  background-color: var(--color-bg-subtle);
   border: var(--border-width-thin) solid var(--color-border-default);
   border-radius: var(--radius-md);
 }
+
+/* ---------- 대표도면 + 서지정보 2단 ---------- */
+.infoGrid {
+  display: grid;
+  /* minmax(0, 1fr): 내용이 길어도 칸이 넘치지 않고 정확히 반반 */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--spacing-5);
+  /* stretch: 두 칸이 같은 높이 → 오른쪽 칸이 도면 높이만큼 늘어남 */
+  align-items: stretch;
+  /* 아래 탭 영역과 구역이 나뉘어 보이도록 간격을 넉넉하게 */
+  margin: 0 0 var(--spacing-6);
+}
+
+.infoGridSingle {
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: var(--spacing-3);
+}
+
+/* 위: 서지정보 표 / 아래: 숫자 박스 → 표 윗선은 도면 윗선, 박스 아랫선은 도면 아랫선에 맞춰짐 */
+.infoSide {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  min-width: 0;
+}
+
+/* 서지정보 표 (dl > div > dt + dd) - 남는 세로 공간을 다 차지 */
+.biblio {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  border-top: var(--border-width-thin) solid var(--color-border-default);
+}
+
+/* 각 줄이 남는 높이를 똑같이 나눠 가짐 → 줄 간격이 균일하게 벌어짐 */
+.biblioRow {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-2) 0;
+  border-bottom: var(--border-width-thin) solid var(--color-border-default);
+  font-size: var(--font-size-sm);
+}
+
+.biblioRow dt {
+  width: 56px;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-medium);
+}
+
+.biblioRow dd {
+  margin: 0;
+  min-width: 0;
+  color: var(--color-text-primary);
+  word-break: keep-all;
+}
+
+/* 숫자 지표 박스는 공통 컴포넌트 StatGrid로 이동 (components/common/StatGrid) */
 
 /* ===========================
    태블릿/모바일 (1023px 이하)
@@ -212,8 +280,19 @@
     display: flex;
   }
 
+  /* 도면 → 서지정보 → 숫자 박스 순서로 위아래 쌓기 */
+  .infoGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* overflow-y: scroll은 스크롤바 자리(약 6px)를 항상 차지해서 위 리스트 카드보다
+     폭이 좁아짐 → 바깥 스크롤을 없애고, 카드가 줄어들어 카드 안쪽에서 스크롤되게 */
   .detail {
-    overflow-y: scroll;
+    overflow: hidden;
+  }
+
+  .detail > div {
+    min-height: 0;
   }
 }
 

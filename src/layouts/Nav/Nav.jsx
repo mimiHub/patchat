@@ -2,8 +2,10 @@
 import { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./Nav.module.css";
-import { Popup } from "../../components/common";
+import { Popup, Input, Button } from "../../components/common";
+import { useAuth } from "../../context/AuthContext.jsx";
 import {
+  IconLogo,
   IconSidebar,
   IconNewChat,
   IconSearch,
@@ -28,8 +30,19 @@ const INITIAL_HISTORY = [
 function Nav() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [authView, setAuthView] = useState("login"); // "login" | "signup" | "forgot"
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [autoLogin, setAutoLogin] = useState(false);
+  const [signupEmail, setSignupEmail] = useState("");
+  const [signupPassword, setSignupPassword] = useState("");
+  const [signupPasswordConfirm, setSignupPasswordConfirm] = useState("");
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [forgotSent, setForgotSent] = useState(false);
   const menuRef = useRef(null);
   const navigate = useNavigate();
+  const { isLoggedIn, email, login, logout } = useAuth();
 
   const {
     history,
@@ -52,18 +65,69 @@ function Nav() {
     setIsExpanded((prev) => !prev);
   }
 
+  function closeAuthPopup() {
+    setIsLoginOpen(false);
+    setAuthView("login");
+    setForgotSent(false);
+  }
+
+  function handleLoginSubmit(e) {
+    e.preventDefault();
+    if (!loginEmail.trim() || !loginPassword.trim()) return;
+    login(loginEmail);
+    setLoginPassword("");
+    closeAuthPopup();
+  }
+
+  function handleLogoutClick() {
+    logout();
+    closeAuthPopup();
+  }
+
+  function handleSignupSubmit(e) {
+    e.preventDefault();
+    if (
+      !signupEmail.trim() ||
+      !signupPassword.trim() ||
+      signupPassword !== signupPasswordConfirm
+    ) {
+      return;
+    }
+    login(signupEmail);
+    setSignupPassword("");
+    setSignupPasswordConfirm("");
+    closeAuthPopup();
+  }
+
+  function handleForgotSubmit(e) {
+    e.preventDefault();
+    if (!forgotEmail.trim()) return;
+    setForgotSent(true);
+  }
+
   function handleHistoryClick(title) {
     navigate("/chat", { state: { initialMessage: title } });
   }
 
   return (
+    <>
+      {/* 모바일/태블릿: 펼쳤을 때 뒤 컨텐츠를 어둡게 덮는 배경. 누르면 닫힘 (PC에선 CSS로 숨김) */}
+      {isExpanded && (
+        <div
+          className={styles.backdrop}
+          onClick={handleToggle}
+          aria-hidden="true"
+        />
+      )}
     <nav
       className={`${styles.navigation} ${isExpanded ? styles.expanded : ""}`}
     >
       <div className={styles.header}>
         <div className={styles.logoSlot}>
           <Link to="/" className={styles.logo} aria-label="홈으로 이동">
-            <span className={styles.icon}>🏠</span>
+            <span className={styles.icon}>
+              <IconLogo className={styles.logoImage} />
+            </span>
           </Link>
           <button
             type="button"
@@ -186,11 +250,17 @@ function Nav() {
       )}
 
       <div className={styles.footer}>
-        <button type="button" className={styles.userLink}>
+        <button
+          type="button"
+          className={styles.userLink}
+          onClick={() => setIsLoginOpen(true)}
+        >
           <span className={styles.icon}>
             <IconUser />
           </span>
-          <span className={styles.label}>사용자 정보</span>
+          <span className={styles.label}>
+            {isLoggedIn ? email : "사용자 정보"}
+          </span>
         </button>
       </div>
 
@@ -214,7 +284,138 @@ function Nav() {
           ))}
         </ul>
       </Popup>
+
+      <Popup
+        isOpen={isLoginOpen}
+        onClose={closeAuthPopup}
+        title={
+          isLoggedIn
+            ? "내 계정"
+            : authView === "signup"
+              ? "회원가입"
+              : authView === "forgot"
+                ? "비밀번호 찾기"
+                : "로그인"
+        }
+        size="sm"
+      >
+        {isLoggedIn ? (
+          <div className={styles.loggedInView}>
+            <p className={styles.loggedInEmail}>{email}</p>
+            <Button variant="secondary" fullWidth onClick={handleLogoutClick}>
+              로그아웃
+            </Button>
+          </div>
+        ) : authView === "signup" ? (
+          <form className={styles.loginForm} onSubmit={handleSignupSubmit}>
+            <Input
+              type="text"
+              placeholder="이메일"
+              value={signupEmail}
+              onChange={(e) => setSignupEmail(e.target.value)}
+            />
+            <Input
+              type="password"
+              placeholder="비밀번호"
+              value={signupPassword}
+              onChange={(e) => setSignupPassword(e.target.value)}
+            />
+            <Input
+              type="password"
+              placeholder="비밀번호 확인"
+              value={signupPasswordConfirm}
+              onChange={(e) => setSignupPasswordConfirm(e.target.value)}
+            />
+            <Button type="submit" fullWidth>
+              가입하기
+            </Button>
+            <button
+              type="button"
+              className={styles.authLinkBtn}
+              onClick={() => setAuthView("login")}
+            >
+              ← 로그인으로 돌아가기
+            </button>
+          </form>
+        ) : authView === "forgot" ? (
+          <form className={styles.loginForm} onSubmit={handleForgotSubmit}>
+            {forgotSent ? (
+              <p className={styles.authMessage}>
+                입력하신 이메일로 재설정 링크를 보냈어요.
+              </p>
+            ) : (
+              <>
+                <Input
+                  type="text"
+                  placeholder="가입한 이메일"
+                  value={forgotEmail}
+                  onChange={(e) => setForgotEmail(e.target.value)}
+                />
+                <Button type="submit" fullWidth>
+                  재설정 링크 보내기
+                </Button>
+              </>
+            )}
+            <button
+              type="button"
+              className={styles.authLinkBtn}
+              onClick={() => {
+                setAuthView("login");
+                setForgotSent(false);
+              }}
+            >
+              ← 로그인으로 돌아가기
+            </button>
+          </form>
+        ) : (
+          <form className={styles.loginForm} onSubmit={handleLoginSubmit}>
+            <Input
+              type="text"
+              placeholder="이메일"
+              value={loginEmail}
+              onChange={(e) => setLoginEmail(e.target.value)}
+            />
+            <Input
+              type="password"
+              placeholder="비밀번호"
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
+            />
+
+            {/* 자동로그인(왼쪽) + 회원가입/비밀번호 찾기(오른쪽) 한 줄 정렬 */}
+            <div className={styles.authOptionsRow}>
+              <Input
+                type="switch"
+                checked={autoLogin}
+                onChange={() => setAutoLogin((prev) => !prev)}
+                label="자동 로그인"
+              />
+              <div className={styles.authLinkRow}>
+                <button
+                  type="button"
+                  className={styles.authLinkBtn}
+                  onClick={() => setAuthView("signup")}
+                >
+                  회원가입
+                </button>
+                <button
+                  type="button"
+                  className={styles.authLinkBtn}
+                  onClick={() => setAuthView("forgot")}
+                >
+                  비밀번호 찾기
+                </button>
+              </div>
+            </div>
+
+            <Button type="submit" fullWidth>
+              로그인
+            </Button>
+          </form>
+        )}
+      </Popup>
     </nav>
+    </>
   );
 }
 

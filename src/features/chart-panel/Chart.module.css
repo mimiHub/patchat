@@ -18,3 +18,130 @@
   color: var(--color-text-primary);
   margin: 0;
 }
+
+/* ---------- 차트 카드 + 순위 표 카드 2단 (카드를 나눠서 영역을 구분) ---------- */
+.chartBody {
+  display: grid;
+  /* 차트를 조금 더 넓게 (1.6 : 1). minmax(0, …)로 내용이 칸을 밀어내지 않게 */
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  /* 위아래 카드 사이 간격(Stack gap md)과 같은 값 → 카드 간격이 사방으로 일정 */
+  gap: var(--spacing-md);
+  /* stretch: 두 카드 높이를 똑같이 맞춤 */
+  align-items: stretch;
+}
+
+.chartCard,
+.sideCard {
+  min-width: 0;
+}
+
+.chartArea {
+  min-width: 0;
+}
+
+/* 막대 끝 숫자 (recharts가 SVG <text>로 그려서 color가 아니라 fill) */
+.barLabel {
+  fill: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+}
+
+/* ---------- 순위 표 ---------- */
+.rankTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+  table-layout: fixed;
+}
+
+.rankTable th {
+  padding: var(--spacing-2);
+  border-bottom: var(--border-width-thin) solid var(--color-border-default);
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xs);
+  text-align: left;
+}
+
+/* 순위 칸은 좁게, 숫자 칸(건수·비율)은 오른쪽 정렬 */
+.rankTable th:first-child {
+  width: 44px;
+  text-align: center;
+}
+
+.rankTable th:nth-child(3),
+.rankTable th:nth-child(4) {
+  width: 72px;
+  text-align: right;
+}
+
+.rankTable td {
+  padding: var(--spacing-2);
+  border-bottom: var(--border-width-thin) solid var(--color-border-default);
+  color: var(--color-text-primary);
+}
+
+.rankNumber {
+  text-align: center;
+  color: var(--color-text-tertiary) !important;
+  font-weight: var(--font-weight-medium);
+}
+
+.rankName {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  min-width: 0;
+}
+
+.colorDot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+}
+
+.nameText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 숫자는 고정폭 숫자(tabular-nums)로 → 자릿수가 세로로 딱 맞게 정렬 */
+.rankValue {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---------- 한 줄 요약 ---------- */
+/* 카드 바깥, 맨 아래 한 줄 (위 간격은 Stack gap이 담당) */
+.insight {
+  margin: 0;
+  padding: var(--spacing-3) var(--spacing-4);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-muted);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.insightLabel {
+  margin-right: var(--spacing-2);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.insight em {
+  font-style: normal;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-500);
+}
+
+/* ===========================
+   태블릿/모바일 (1023px 이하) - 차트 위, 순위 표 아래
+=========================== */
+@media (max-width: 1023px) {
+  .chartBody {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
